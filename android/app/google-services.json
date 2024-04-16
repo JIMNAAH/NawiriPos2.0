@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "367105643388",
+    "project_id": "multivendorapp-d01db",
+    "storage_bucket": "multivendorapp-d01db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367105643388:android:6a77ac2300cc5f6ad9caf9",
+        "android_client_info": {
+          "package_name": "com.mycompany.shooppingapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7FGRLAIjG9g2OtC8-f8NxE2ZObKl0m2E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367105643388:android:dbe0f653381d0ea2d9caf9",
+        "android_client_info": {
+          "package_name": "com.softbyte.nawiripos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7FGRLAIjG9g2OtC8-f8NxE2ZObKl0m2E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
