@@ -32,14 +32,14 @@ class _ManageIncomeWidgetState extends State<ManageIncomeWidget> {
     super.initState();
     _model = createModel(context, () => ManageIncomeModel());
 
-    _model.userInputController ??=
+    _model.userInputTextController ??=
         TextEditingController(text: getCurrentTimestamp.toString());
     _model.userInputFocusNode ??= FocusNode();
 
-    _model.descriptionController ??= TextEditingController();
+    _model.descriptionTextController ??= TextEditingController();
     _model.descriptionFocusNode ??= FocusNode();
 
-    _model.amountController ??= TextEditingController();
+    _model.amountTextController ??= TextEditingController();
     _model.amountFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -151,7 +151,7 @@ class _ManageIncomeWidgetState extends State<ManageIncomeWidget> {
                                   width:
                                       MediaQuery.sizeOf(context).width * 0.44,
                                   child: TextFormField(
-                                    controller: _model.userInputController,
+                                    controller: _model.userInputTextController,
                                     focusNode: _model.userInputFocusNode,
                                     autofocus: true,
                                     obscureText: false,
@@ -223,7 +223,7 @@ class _ManageIncomeWidgetState extends State<ManageIncomeWidget> {
                                         ),
                                     keyboardType: TextInputType.number,
                                     validator: _model
-                                        .userInputControllerValidator
+                                        .userInputTextControllerValidator
                                         .asValidator(context),
                                   ),
                                 ),
@@ -382,7 +382,7 @@ class _ManageIncomeWidgetState extends State<ManageIncomeWidget> {
                             child: SizedBox(
                               width: 370.0,
                               child: TextFormField(
-                                controller: _model.descriptionController,
+                                controller: _model.descriptionTextController,
                                 focusNode: _model.descriptionFocusNode,
                                 autofocus: true,
                                 obscureText: false,
@@ -434,7 +434,8 @@ class _ManageIncomeWidgetState extends State<ManageIncomeWidget> {
                                       letterSpacing: 0.0,
                                     ),
                                 maxLines: 3,
-                                validator: _model.descriptionControllerValidator
+                                validator: _model
+                                    .descriptionTextControllerValidator
                                     .asValidator(context),
                               ),
                             ),
@@ -452,7 +453,7 @@ class _ManageIncomeWidgetState extends State<ManageIncomeWidget> {
                             child: SizedBox(
                               width: 370.0,
                               child: TextFormField(
-                                controller: _model.amountController,
+                                controller: _model.amountTextController,
                                 focusNode: _model.amountFocusNode,
                                 autofocus: true,
                                 obscureText: false,
@@ -503,7 +504,7 @@ class _ManageIncomeWidgetState extends State<ManageIncomeWidget> {
                                       color: Colors.black,
                                       letterSpacing: 0.0,
                                     ),
-                                validator: _model.amountControllerValidator
+                                validator: _model.amountTextControllerValidator
                                     .asValidator(context),
                               ),
                             ),
@@ -524,17 +525,17 @@ class _ManageIncomeWidgetState extends State<ManageIncomeWidget> {
                                   await NawiriPOSGroup.saveExpensesCall.call(
                                 branchId: FFAppState().branchID,
                                 cashAmount: double.tryParse(
-                                    _model.amountController.text),
+                                    _model.amountTextController.text),
                                 ccAmount: 0.0,
                                 payId: '0',
                                 payDescription:
-                                    _model.descriptionController.text,
+                                    _model.descriptionTextController.text,
                                 payTo: ' ',
                                 payTypeId: '20',
                                 shiftId: FFAppState().ShiftD,
                                 payDate: getCurrentTimestamp.toString(),
                                 payAmount: double.tryParse(
-                                    _model.amountController.text),
+                                    _model.amountTextController.text),
                                 staffId: FFAppState().StaffD,
                               );
                               if ((_model.apiResultfer?.succeeded ?? true)) {

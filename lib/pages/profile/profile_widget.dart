@@ -23,25 +23,25 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     super.initState();
     _model = createModel(context, () => ProfileModel());
 
-    _model.bussinaessNameController ??= TextEditingController();
+    _model.bussinaessNameTextController ??= TextEditingController();
     _model.bussinaessNameFocusNode ??= FocusNode();
 
-    _model.emailController ??= TextEditingController();
+    _model.emailTextController ??= TextEditingController();
     _model.emailFocusNode ??= FocusNode();
 
-    _model.locationController ??= TextEditingController();
+    _model.locationTextController ??= TextEditingController();
     _model.locationFocusNode ??= FocusNode();
 
-    _model.phoneController ??= TextEditingController();
+    _model.phoneTextController ??= TextEditingController();
     _model.phoneFocusNode ??= FocusNode();
 
-    _model.tillController ??= TextEditingController();
+    _model.tillTextController ??= TextEditingController();
     _model.tillFocusNode ??= FocusNode();
 
-    _model.recieptFooterController ??= TextEditingController();
+    _model.recieptFooterTextController ??= TextEditingController();
     _model.recieptFooterFocusNode ??= FocusNode();
 
-    _model.usernameController ??= TextEditingController();
+    _model.usernameTextController ??= TextEditingController();
     _model.usernameFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -120,7 +120,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                     width: 370.0,
                                     child: TextFormField(
                                       controller:
-                                          _model.bussinaessNameController,
+                                          _model.bussinaessNameTextController,
                                       focusNode: _model.bussinaessNameFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -179,7 +179,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                             letterSpacing: 0.0,
                                           ),
                                       validator: _model
-                                          .bussinaessNameControllerValidator
+                                          .bussinaessNameTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -190,7 +190,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                   child: SizedBox(
                                     width: 370.0,
                                     child: TextFormField(
-                                      controller: _model.emailController,
+                                      controller: _model.emailTextController,
                                       focusNode: _model.emailFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -249,7 +249,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                             letterSpacing: 0.0,
                                           ),
                                       keyboardType: TextInputType.emailAddress,
-                                      validator: _model.emailControllerValidator
+                                      validator: _model
+                                          .emailTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -260,7 +261,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                   child: SizedBox(
                                     width: 370.0,
                                     child: TextFormField(
-                                      controller: _model.locationController,
+                                      controller: _model.locationTextController,
                                       focusNode: _model.locationFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -319,7 +320,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                             letterSpacing: 0.0,
                                           ),
                                       validator: _model
-                                          .locationControllerValidator
+                                          .locationTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -330,7 +331,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                   child: SizedBox(
                                     width: 370.0,
                                     child: TextFormField(
-                                      controller: _model.phoneController,
+                                      controller: _model.phoneTextController,
                                       focusNode: _model.phoneFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -389,7 +390,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                             letterSpacing: 0.0,
                                           ),
                                       keyboardType: TextInputType.phone,
-                                      validator: _model.phoneControllerValidator
+                                      validator: _model
+                                          .phoneTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -400,7 +402,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                   child: SizedBox(
                                     width: 370.0,
                                     child: TextFormField(
-                                      controller: _model.tillController,
+                                      controller: _model.tillTextController,
                                       focusNode: _model.tillFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -461,7 +463,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                       keyboardType:
                                           const TextInputType.numberWithOptions(
                                               decimal: true),
-                                      validator: _model.tillControllerValidator
+                                      validator: _model
+                                          .tillTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -473,7 +476,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                     width: 370.0,
                                     child: TextFormField(
                                       controller:
-                                          _model.recieptFooterController,
+                                          _model.recieptFooterTextController,
                                       focusNode: _model.recieptFooterFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -532,7 +535,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                             letterSpacing: 0.0,
                                           ),
                                       validator: _model
-                                          .recieptFooterControllerValidator
+                                          .recieptFooterTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -557,7 +560,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                   child: SizedBox(
                                     width: 370.0,
                                     child: TextFormField(
-                                      controller: _model.usernameController,
+                                      controller: _model.usernameTextController,
                                       focusNode: _model.usernameFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -616,7 +619,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                             letterSpacing: 0.0,
                                           ),
                                       validator: _model
-                                          .usernameControllerValidator
+                                          .usernameTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),

@@ -41,10 +41,10 @@ class _CreateAccount1WidgetState extends State<CreateAccount1Widget> {
     _model.textController3 ??= TextEditingController();
     _model.textFieldFocusNode3 ??= FocusNode();
 
-    _model.passwordController1 ??= TextEditingController();
+    _model.passwordTextController1 ??= TextEditingController();
     _model.passwordFocusNode1 ??= FocusNode();
 
-    _model.passwordController2 ??= TextEditingController();
+    _model.passwordTextController2 ??= TextEditingController();
     _model.passwordFocusNode2 ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -374,7 +374,7 @@ class _CreateAccount1WidgetState extends State<CreateAccount1Widget> {
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0.0, 18.0, 0.0, 0.0),
                         child: TextFormField(
-                          controller: _model.passwordController1,
+                          controller: _model.passwordTextController1,
                           focusNode: _model.passwordFocusNode1,
                           autofocus: true,
                           autofillHints: const [AutofillHints.password],
@@ -449,7 +449,7 @@ class _CreateAccount1WidgetState extends State<CreateAccount1Widget> {
                                     fontSize: 14.0,
                                     letterSpacing: 0.0,
                                   ),
-                          validator: _model.passwordController1Validator
+                          validator: _model.passwordTextController1Validator
                               .asValidator(context),
                         ),
                       ),
@@ -457,7 +457,7 @@ class _CreateAccount1WidgetState extends State<CreateAccount1Widget> {
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0.0, 18.0, 0.0, 0.0),
                         child: TextFormField(
-                          controller: _model.passwordController2,
+                          controller: _model.passwordTextController2,
                           focusNode: _model.passwordFocusNode2,
                           autofocus: true,
                           autofillHints: const [AutofillHints.password],
@@ -532,7 +532,7 @@ class _CreateAccount1WidgetState extends State<CreateAccount1Widget> {
                                     fontSize: 14.0,
                                     letterSpacing: 0.0,
                                   ),
-                          validator: _model.passwordController2Validator
+                          validator: _model.passwordTextController2Validator
                               .asValidator(context),
                         ),
                       ),

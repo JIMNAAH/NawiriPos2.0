@@ -13,24 +13,24 @@ class AddTransactionModel extends FlutterFlowModel<AddTransactionWidget> {
   FormFieldController<String>? ddBankingtypeValueController;
   // State field(s) for ref widget.
   FocusNode? refFocusNode;
-  TextEditingController? refController;
-  String? Function(BuildContext, String?)? refControllerValidator;
+  TextEditingController? refTextController;
+  String? Function(BuildContext, String?)? refTextControllerValidator;
   // State field(s) for amount widget.
   FocusNode? amountFocusNode;
-  TextEditingController? amountController;
-  String? Function(BuildContext, String?)? amountControllerValidator;
+  TextEditingController? amountTextController;
+  String? Function(BuildContext, String?)? amountTextControllerValidator;
   // State field(s) for charges widget.
   FocusNode? chargesFocusNode;
-  TextEditingController? chargesController;
-  String? Function(BuildContext, String?)? chargesControllerValidator;
+  TextEditingController? chargesTextController;
+  String? Function(BuildContext, String?)? chargesTextControllerValidator;
   // State field(s) for dueDate widget.
   FocusNode? dueDateFocusNode;
-  TextEditingController? dueDateController;
-  String? Function(BuildContext, String?)? dueDateControllerValidator;
+  TextEditingController? dueDateTextController;
+  String? Function(BuildContext, String?)? dueDateTextControllerValidator;
   // State field(s) for comments widget.
   FocusNode? commentsFocusNode;
-  TextEditingController? commentsController;
-  String? Function(BuildContext, String?)? commentsControllerValidator;
+  TextEditingController? commentsTextController;
+  String? Function(BuildContext, String?)? commentsTextControllerValidator;
   // Stores action output result for [Backend Call - API (SaveBankTransaction)] action in Button widget.
   ApiCallResponse? apiResult0b1;
 
@@ -41,18 +41,18 @@ class AddTransactionModel extends FlutterFlowModel<AddTransactionWidget> {
   void dispose() {
     unfocusNode.dispose();
     refFocusNode?.dispose();
-    refController?.dispose();
+    refTextController?.dispose();
 
     amountFocusNode?.dispose();
-    amountController?.dispose();
+    amountTextController?.dispose();
 
     chargesFocusNode?.dispose();
-    chargesController?.dispose();
+    chargesTextController?.dispose();
 
     dueDateFocusNode?.dispose();
-    dueDateController?.dispose();
+    dueDateTextController?.dispose();
 
     commentsFocusNode?.dispose();
-    commentsController?.dispose();
+    commentsTextController?.dispose();
   }
 }

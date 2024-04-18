@@ -10,21 +10,25 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
   final unfocusNode = FocusNode();
   // State field(s) for userInput widget.
   FocusNode? userInputFocusNode;
-  TextEditingController? userInputController;
-  String? Function(BuildContext, String?)? userInputControllerValidator;
+  TextEditingController? userInputTextController;
+  String? Function(BuildContext, String?)? userInputTextControllerValidator;
   // State field(s) for mpesa widget.
   FocusNode? mpesaFocusNode;
-  TextEditingController? mpesaController;
-  String? Function(BuildContext, String?)? mpesaControllerValidator;
+  TextEditingController? mpesaTextController;
+  String? Function(BuildContext, String?)? mpesaTextControllerValidator;
   // State field(s) for bank widget.
   FocusNode? bankFocusNode;
-  TextEditingController? bankController;
-  String? Function(BuildContext, String?)? bankControllerValidator;
+  TextEditingController? bankTextController;
+  String? Function(BuildContext, String?)? bankTextControllerValidator;
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
   // Stores action output result for [Backend Call - API (GetCustomers)] action in DropDown widget.
   ApiCallResponse? apiResultg98;
+  // State field(s) for onAccount widget.
+  FocusNode? onAccountFocusNode;
+  TextEditingController? onAccountTextController;
+  String? Function(BuildContext, String?)? onAccountTextControllerValidator;
   // Stores action output result for [Backend Call - API (PostReceipt)] action in Button widget.
   ApiCallResponse? apiResultcni;
 
@@ -35,12 +39,15 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
   void dispose() {
     unfocusNode.dispose();
     userInputFocusNode?.dispose();
-    userInputController?.dispose();
+    userInputTextController?.dispose();
 
     mpesaFocusNode?.dispose();
-    mpesaController?.dispose();
+    mpesaTextController?.dispose();
 
     bankFocusNode?.dispose();
-    bankController?.dispose();
+    bankTextController?.dispose();
+
+    onAccountFocusNode?.dispose();
+    onAccountTextController?.dispose();
   }
 }

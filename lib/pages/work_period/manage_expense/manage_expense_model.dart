@@ -10,8 +10,8 @@ class ManageExpenseModel extends FlutterFlowModel<ManageExpenseWidget> {
   final unfocusNode = FocusNode();
   // State field(s) for userInput widget.
   FocusNode? userInputFocusNode;
-  TextEditingController? userInputController;
-  String? Function(BuildContext, String?)? userInputControllerValidator;
+  TextEditingController? userInputTextController;
+  String? Function(BuildContext, String?)? userInputTextControllerValidator;
   // State field(s) for Transactiontype widget.
   String? transactiontypeValue;
   FormFieldController<String>? transactiontypeValueController;
@@ -20,16 +20,16 @@ class ManageExpenseModel extends FlutterFlowModel<ManageExpenseWidget> {
   FormFieldController<String>? transactionByValueController;
   // State field(s) for Pay_To widget.
   FocusNode? payToFocusNode;
-  TextEditingController? payToController;
-  String? Function(BuildContext, String?)? payToControllerValidator;
+  TextEditingController? payToTextController;
+  String? Function(BuildContext, String?)? payToTextControllerValidator;
   // State field(s) for Description widget.
   FocusNode? descriptionFocusNode;
-  TextEditingController? descriptionController;
-  String? Function(BuildContext, String?)? descriptionControllerValidator;
+  TextEditingController? descriptionTextController;
+  String? Function(BuildContext, String?)? descriptionTextControllerValidator;
   // State field(s) for Amount widget.
   FocusNode? amountFocusNode;
-  TextEditingController? amountController;
-  String? Function(BuildContext, String?)? amountControllerValidator;
+  TextEditingController? amountTextController;
+  String? Function(BuildContext, String?)? amountTextControllerValidator;
   // Stores action output result for [Backend Call - API (SaveExpenses)] action in Button widget.
   ApiCallResponse? apiResultfer;
 
@@ -40,15 +40,15 @@ class ManageExpenseModel extends FlutterFlowModel<ManageExpenseWidget> {
   void dispose() {
     unfocusNode.dispose();
     userInputFocusNode?.dispose();
-    userInputController?.dispose();
+    userInputTextController?.dispose();
 
     payToFocusNode?.dispose();
-    payToController?.dispose();
+    payToTextController?.dispose();
 
     descriptionFocusNode?.dispose();
-    descriptionController?.dispose();
+    descriptionTextController?.dispose();
 
     amountFocusNode?.dispose();
-    amountController?.dispose();
+    amountTextController?.dispose();
   }
 }

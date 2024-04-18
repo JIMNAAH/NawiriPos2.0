@@ -47,14 +47,15 @@ class _ManageProductWidgetState extends State<ManageProductWidget> {
     super.initState();
     _model = createModel(context, () => ManageProductModel());
 
-    _model.nameController ??= TextEditingController(text: widget.productName);
+    _model.nameTextController ??=
+        TextEditingController(text: widget.productName);
     _model.nameFocusNode ??= FocusNode();
 
-    _model.retailPriceController ??=
+    _model.retailPriceTextController ??=
         TextEditingController(text: widget.retailPrice?.toString());
     _model.retailPriceFocusNode ??= FocusNode();
 
-    _model.wholesaleMarginController ??=
+    _model.wholesaleMarginTextController ??=
         TextEditingController(text: widget.wholesalePrice?.toString());
     _model.wholesaleMarginFocusNode ??= FocusNode();
 
@@ -156,7 +157,7 @@ class _ManageProductWidgetState extends State<ManageProductWidget> {
                                   child: SizedBox(
                                     width: 370.0,
                                     child: TextFormField(
-                                      controller: _model.nameController,
+                                      controller: _model.nameTextController,
                                       focusNode: _model.nameFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -213,7 +214,8 @@ class _ManageProductWidgetState extends State<ManageProductWidget> {
                                             color: Colors.black,
                                             letterSpacing: 0.0,
                                           ),
-                                      validator: _model.nameControllerValidator
+                                      validator: _model
+                                          .nameTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -224,7 +226,8 @@ class _ManageProductWidgetState extends State<ManageProductWidget> {
                                   child: SizedBox(
                                     width: 370.0,
                                     child: TextFormField(
-                                      controller: _model.retailPriceController,
+                                      controller:
+                                          _model.retailPriceTextController,
                                       focusNode: _model.retailPriceFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -282,7 +285,7 @@ class _ManageProductWidgetState extends State<ManageProductWidget> {
                                             letterSpacing: 0.0,
                                           ),
                                       validator: _model
-                                          .retailPriceControllerValidator
+                                          .retailPriceTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -294,7 +297,7 @@ class _ManageProductWidgetState extends State<ManageProductWidget> {
                                     width: 370.0,
                                     child: TextFormField(
                                       controller:
-                                          _model.wholesaleMarginController,
+                                          _model.wholesaleMarginTextController,
                                       focusNode:
                                           _model.wholesaleMarginFocusNode,
                                       autofocus: true,
@@ -353,7 +356,7 @@ class _ManageProductWidgetState extends State<ManageProductWidget> {
                                             letterSpacing: 0.0,
                                           ),
                                       validator: _model
-                                          .wholesaleMarginControllerValidator
+                                          .wholesaleMarginTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -507,14 +510,15 @@ class _ManageProductWidgetState extends State<ManageProductWidget> {
                                                   .saveProductCall
                                                   .call(
                                             locationProductDescription:
-                                                _model.nameController.text,
+                                                _model.nameTextController.text,
                                             branchId: FFAppState().branchID,
                                             locationProductSp: double.tryParse(
-                                                _model.retailPriceController
+                                                _model.retailPriceTextController
                                                     .text),
                                             locationProductId: widget.productId,
                                             locationProductSp1: double.tryParse(
-                                                _model.wholesaleMarginController
+                                                _model
+                                                    .wholesaleMarginTextController
                                                     .text),
                                           );
                                           if ((_model.apiResult45y?.succeeded ??

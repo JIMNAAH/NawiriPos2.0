@@ -40,14 +40,14 @@ class CreateAccount1Model extends FlutterFlowModel<CreateAccount1Widget> {
   String? Function(BuildContext, String?)? textController3Validator;
   // State field(s) for password widget.
   FocusNode? passwordFocusNode1;
-  TextEditingController? passwordController1;
+  TextEditingController? passwordTextController1;
   late bool passwordVisibility1;
-  String? Function(BuildContext, String?)? passwordController1Validator;
+  String? Function(BuildContext, String?)? passwordTextController1Validator;
   // State field(s) for password widget.
   FocusNode? passwordFocusNode2;
-  TextEditingController? passwordController2;
+  TextEditingController? passwordTextController2;
   late bool passwordVisibility2;
-  String? Function(BuildContext, String?)? passwordController2Validator;
+  String? Function(BuildContext, String?)? passwordTextController2Validator;
 
   @override
   void initState(BuildContext context) {
@@ -69,9 +69,9 @@ class CreateAccount1Model extends FlutterFlowModel<CreateAccount1Widget> {
     textController3?.dispose();
 
     passwordFocusNode1?.dispose();
-    passwordController1?.dispose();
+    passwordTextController1?.dispose();
 
     passwordFocusNode2?.dispose();
-    passwordController2?.dispose();
+    passwordTextController2?.dispose();
   }
 }

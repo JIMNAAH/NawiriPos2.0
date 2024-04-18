@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
+
 
 import '/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -132,6 +133,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             quantity: params.getParam(
               'quantity',
               ParamType.int,
+            ),
+            productName: params.getParam(
+              'productName',
+              ParamType.String,
+            ),
+            sPrice: params.getParam(
+              'sPrice',
+              ParamType.double,
             ),
           ),
         ),
@@ -546,11 +555,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const HomePage2Widget(),
         ),
         FFRoute(
-          name: 'PosPage2',
-          path: '/posPage2',
-          builder: (context, params) => const PosPage2Widget(),
-        ),
-        FFRoute(
           name: 'Home12ProjectDashboard',
           path: '/home12ProjectDashboard',
           builder: (context, params) => const Home12ProjectDashboardWidget(),
@@ -569,6 +573,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'setting',
           path: '/setting',
           builder: (context, params) => const SettingWidget(),
+        ),
+        FFRoute(
+          name: 'Terms',
+          path: '/terms',
+          builder: (context, params) => const TermsWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -598,7 +607,7 @@ extension _GoRouterStateExtensions on GoRouterState {
       extra != null ? extra as Map<String, dynamic> : {};
   Map<String, dynamic> get allParams => <String, dynamic>{}
     ..addAll(pathParameters)
-    ..addAll(queryParameters)
+    ..addAll(uri.queryParameters)
     ..addAll(extraMap);
   TransitionInfo get transitionInfo => extraMap.containsKey(kTransitionInfoKey)
       ? extraMap[kTransitionInfoKey] as TransitionInfo
@@ -640,6 +649,7 @@ class FFParameters {
     String paramName,
     ParamType type, [
     bool isList = false,
+    List<String>? collectionNamePath,
     StructBuilder<T>? structBuilder,
   ]) {
     if (futureParamValues.containsKey(paramName)) {
@@ -658,6 +668,7 @@ class FFParameters {
       param,
       type,
       isList,
+      collectionNamePath: collectionNamePath,
       structBuilder: structBuilder,
     );
   }
@@ -745,7 +756,7 @@ class RootPageContext {
   static bool isInactiveRootPage(BuildContext context) {
     final rootPageContext = context.read<RootPageContext?>();
     final isRootPage = rootPageContext?.isRootPage ?? false;
-    final location = GoRouter.of(context).location;
+    final location = GoRouterState.of(context).uri.toString();
     return isRootPage &&
         location != '/' &&
         location != rootPageContext?.errorRoute;

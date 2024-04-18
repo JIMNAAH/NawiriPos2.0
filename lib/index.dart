@@ -73,10 +73,10 @@ export '/supplier_report/supplier_report_widget.dart' show SupplierReportWidget;
 export '/pages/work_period/manage_income/manage_income_widget.dart'
     show ManageIncomeWidget;
 export '/pages/home_page2/home_page2_widget.dart' show HomePage2Widget;
-export '/pages/pos/pos_page2/pos_page2_widget.dart' show PosPage2Widget;
 export '/home12_project_dashboard/home12_project_dashboard_widget.dart'
     show Home12ProjectDashboardWidget;
 export '/pages/pos/pos_page_copy/pos_page_copy_widget.dart'
     show PosPageCopyWidget;
 export '/carwash/carwash_widget.dart' show CarwashWidget;
 export '/setting/setting_widget.dart' show SettingWidget;
+export '/terms/terms_widget.dart' show TermsWidget;

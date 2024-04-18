@@ -16,16 +16,16 @@ class CustomerReceiptModel extends FlutterFlowModel<CustomerReceiptWidget> {
   FormFieldController<String>? banksValueController;
   // State field(s) for Trans_Ref widget.
   FocusNode? transRefFocusNode;
-  TextEditingController? transRefController;
-  String? Function(BuildContext, String?)? transRefControllerValidator;
+  TextEditingController? transRefTextController;
+  String? Function(BuildContext, String?)? transRefTextControllerValidator;
   // State field(s) for comments widget.
   FocusNode? commentsFocusNode;
-  TextEditingController? commentsController;
-  String? Function(BuildContext, String?)? commentsControllerValidator;
+  TextEditingController? commentsTextController;
+  String? Function(BuildContext, String?)? commentsTextControllerValidator;
   // State field(s) for amount widget.
   FocusNode? amountFocusNode;
-  TextEditingController? amountController;
-  String? Function(BuildContext, String?)? amountControllerValidator;
+  TextEditingController? amountTextController;
+  String? Function(BuildContext, String?)? amountTextControllerValidator;
   // Stores action output result for [Backend Call - API (customerTrans)] action in Button widget.
   ApiCallResponse? apiResult0b1;
 
@@ -36,12 +36,12 @@ class CustomerReceiptModel extends FlutterFlowModel<CustomerReceiptWidget> {
   void dispose() {
     unfocusNode.dispose();
     transRefFocusNode?.dispose();
-    transRefController?.dispose();
+    transRefTextController?.dispose();
 
     commentsFocusNode?.dispose();
-    commentsController?.dispose();
+    commentsTextController?.dispose();
 
     amountFocusNode?.dispose();
-    amountController?.dispose();
+    amountTextController?.dispose();
   }
 }

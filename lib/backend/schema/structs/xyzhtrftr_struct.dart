@@ -1,12 +1,15 @@
 // ignore_for_file: unnecessary_getters_setters
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
-class CartStruct extends BaseStruct {
-  CartStruct({
+class XyzhtrftrStruct extends FFFirebaseStruct {
+  XyzhtrftrStruct({
     String? productName,
     int? quantity,
     double? sPrice,
@@ -15,6 +18,7 @@ class CartStruct extends BaseStruct {
     String? receiptDetailsId,
     String? footnote,
     bool? isTapped,
+    FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _productName = productName,
         _quantity = quantity,
         _sPrice = sPrice,
@@ -22,7 +26,8 @@ class CartStruct extends BaseStruct {
         _uomCode = uomCode,
         _receiptDetailsId = receiptDetailsId,
         _footnote = footnote,
-        _isTapped = isTapped;
+        _isTapped = isTapped,
+        super(firestoreUtilData);
 
   // "productName" field.
   String? _productName;
@@ -74,7 +79,7 @@ class CartStruct extends BaseStruct {
   set isTapped(bool? val) => _isTapped = val;
   bool hasIsTapped() => _isTapped != null;
 
-  static CartStruct fromMap(Map<String, dynamic> data) => CartStruct(
+  static XyzhtrftrStruct fromMap(Map<String, dynamic> data) => XyzhtrftrStruct(
         productName: data['productName'] as String?,
         quantity: castToType<int>(data['quantity']),
         sPrice: castToType<double>(data['sPrice']),
@@ -85,8 +90,9 @@ class CartStruct extends BaseStruct {
         isTapped: data['isTapped'] as bool?,
       );
 
-  static CartStruct? maybeFromMap(dynamic data) =>
-      data is Map ? CartStruct.fromMap(data.cast<String, dynamic>()) : null;
+  static XyzhtrftrStruct? maybeFromMap(dynamic data) => data is Map
+      ? XyzhtrftrStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'productName': _productName,
@@ -135,8 +141,8 @@ class CartStruct extends BaseStruct {
         ),
       }.withoutNulls;
 
-  static CartStruct fromSerializableMap(Map<String, dynamic> data) =>
-      CartStruct(
+  static XyzhtrftrStruct fromSerializableMap(Map<String, dynamic> data) =>
+      XyzhtrftrStruct(
         productName: deserializeParam(
           data['productName'],
           ParamType.String,
@@ -180,11 +186,11 @@ class CartStruct extends BaseStruct {
       );
 
   @override
-  String toString() => 'CartStruct(${toMap()})';
+  String toString() => 'XyzhtrftrStruct(${toMap()})';
 
   @override
   bool operator ==(Object other) {
-    return other is CartStruct &&
+    return other is XyzhtrftrStruct &&
         productName == other.productName &&
         quantity == other.quantity &&
         sPrice == other.sPrice &&
@@ -208,7 +214,7 @@ class CartStruct extends BaseStruct {
       ]);
 }
 
-CartStruct createCartStruct({
+XyzhtrftrStruct createXyzhtrftrStruct({
   String? productName,
   int? quantity,
   double? sPrice,
@@ -217,8 +223,12 @@ CartStruct createCartStruct({
   String? receiptDetailsId,
   String? footnote,
   bool? isTapped,
+  Map<String, dynamic> fieldValues = const {},
+  bool clearUnsetFields = true,
+  bool create = false,
+  bool delete = false,
 }) =>
-    CartStruct(
+    XyzhtrftrStruct(
       productName: productName,
       quantity: quantity,
       sPrice: sPrice,
@@ -227,4 +237,69 @@ CartStruct createCartStruct({
       receiptDetailsId: receiptDetailsId,
       footnote: footnote,
       isTapped: isTapped,
+      firestoreUtilData: FirestoreUtilData(
+        clearUnsetFields: clearUnsetFields,
+        create: create,
+        delete: delete,
+        fieldValues: fieldValues,
+      ),
     );
+
+XyzhtrftrStruct? updateXyzhtrftrStruct(
+  XyzhtrftrStruct? xyzhtrftr, {
+  bool clearUnsetFields = true,
+  bool create = false,
+}) =>
+    xyzhtrftr
+      ?..firestoreUtilData = FirestoreUtilData(
+        clearUnsetFields: clearUnsetFields,
+        create: create,
+      );
+
+void addXyzhtrftrStructData(
+  Map<String, dynamic> firestoreData,
+  XyzhtrftrStruct? xyzhtrftr,
+  String fieldName, [
+  bool forFieldValue = false,
+]) {
+  firestoreData.remove(fieldName);
+  if (xyzhtrftr == null) {
+    return;
+  }
+  if (xyzhtrftr.firestoreUtilData.delete) {
+    firestoreData[fieldName] = FieldValue.delete();
+    return;
+  }
+  final clearFields =
+      !forFieldValue && xyzhtrftr.firestoreUtilData.clearUnsetFields;
+  if (clearFields) {
+    firestoreData[fieldName] = <String, dynamic>{};
+  }
+  final xyzhtrftrData = getXyzhtrftrFirestoreData(xyzhtrftr, forFieldValue);
+  final nestedData = xyzhtrftrData.map((k, v) => MapEntry('$fieldName.$k', v));
+
+  final mergeFields = xyzhtrftr.firestoreUtilData.create || clearFields;
+  firestoreData
+      .addAll(mergeFields ? mergeNestedFields(nestedData) : nestedData);
+}
+
+Map<String, dynamic> getXyzhtrftrFirestoreData(
+  XyzhtrftrStruct? xyzhtrftr, [
+  bool forFieldValue = false,
+]) {
+  if (xyzhtrftr == null) {
+    return {};
+  }
+  final firestoreData = mapToFirestore(xyzhtrftr.toMap());
+
+  // Add any Firestore field values
+  xyzhtrftr.firestoreUtilData.fieldValues
+      .forEach((k, v) => firestoreData[k] = v);
+
+  return forFieldValue ? mergeNestedFields(firestoreData) : firestoreData;
+}
+
+List<Map<String, dynamic>> getXyzhtrftrListFirestoreData(
+  List<XyzhtrftrStruct>? xyzhtrftrs,
+) =>
+    xyzhtrftrs?.map((e) => getXyzhtrftrFirestoreData(e, true)).toList() ?? [];

@@ -33,13 +33,13 @@ class _CustomerReceiptWidgetState extends State<CustomerReceiptWidget> {
     super.initState();
     _model = createModel(context, () => CustomerReceiptModel());
 
-    _model.transRefController ??= TextEditingController();
+    _model.transRefTextController ??= TextEditingController();
     _model.transRefFocusNode ??= FocusNode();
 
-    _model.commentsController ??= TextEditingController();
+    _model.commentsTextController ??= TextEditingController();
     _model.commentsFocusNode ??= FocusNode();
 
-    _model.amountController ??= TextEditingController();
+    _model.amountTextController ??= TextEditingController();
     _model.amountFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -294,7 +294,7 @@ class _CustomerReceiptWidgetState extends State<CustomerReceiptWidget> {
                                   child: SizedBox(
                                     width: 370.0,
                                     child: TextFormField(
-                                      controller: _model.transRefController,
+                                      controller: _model.transRefTextController,
                                       focusNode: _model.transRefFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -353,7 +353,7 @@ class _CustomerReceiptWidgetState extends State<CustomerReceiptWidget> {
                                           ),
                                       keyboardType: TextInputType.number,
                                       validator: _model
-                                          .transRefControllerValidator
+                                          .transRefTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -364,7 +364,7 @@ class _CustomerReceiptWidgetState extends State<CustomerReceiptWidget> {
                                   child: SizedBox(
                                     width: 370.0,
                                     child: TextFormField(
-                                      controller: _model.commentsController,
+                                      controller: _model.commentsTextController,
                                       focusNode: _model.commentsFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -423,7 +423,7 @@ class _CustomerReceiptWidgetState extends State<CustomerReceiptWidget> {
                                           ),
                                       maxLines: 2,
                                       validator: _model
-                                          .commentsControllerValidator
+                                          .commentsTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -434,7 +434,7 @@ class _CustomerReceiptWidgetState extends State<CustomerReceiptWidget> {
                                   child: SizedBox(
                                     width: 370.0,
                                     child: TextFormField(
-                                      controller: _model.amountController,
+                                      controller: _model.amountTextController,
                                       focusNode: _model.amountFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -493,7 +493,7 @@ class _CustomerReceiptWidgetState extends State<CustomerReceiptWidget> {
                                           ),
                                       keyboardType: TextInputType.number,
                                       validator: _model
-                                          .amountControllerValidator
+                                          .amountTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -513,10 +513,10 @@ class _CustomerReceiptWidgetState extends State<CustomerReceiptWidget> {
                                                   .call(
                                             branchId: FFAppState().branchID,
                                             customerId: widget.customerID,
-                                            payAmount: double.tryParse(
-                                                _model.amountController.text),
-                                            payDescription:
-                                                _model.commentsController.text,
+                                            payAmount: double.tryParse(_model
+                                                .amountTextController.text),
+                                            payDescription: _model
+                                                .commentsTextController.text,
                                             shiftId: FFAppState().ShiftD,
                                             payId: '0',
                                             payDate:
@@ -529,8 +529,8 @@ class _CustomerReceiptWidgetState extends State<CustomerReceiptWidget> {
                                             chequeAmount: 0.0,
                                             fId: widget.customerID,
                                             mobileAmount: 0.0,
-                                            payRef:
-                                                _model.transRefController.text,
+                                            payRef: _model
+                                                .transRefTextController.text,
                                             payTime:
                                                 getCurrentTimestamp.toString(),
                                             payTo: ' ',

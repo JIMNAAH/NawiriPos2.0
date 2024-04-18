@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import '/backend/schema/structs/index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'flutter_flow/flutter_flow_util.dart';
 
 class FFAppState extends ChangeNotifier {
   static FFAppState _instance = FFAppState._internal();
@@ -18,21 +16,6 @@ class FFAppState extends ChangeNotifier {
 
   Future initializePersistedState() async {
     prefs = await SharedPreferences.getInstance();
-    _safeInit(() {
-      _cart = prefs
-              .getStringList('ff_cart')
-              ?.map((x) {
-                try {
-                  return CartStruct.fromSerializableMap(jsonDecode(x));
-                } catch (e) {
-                  print("Can't decode persisted data type. Error: $e.");
-                  return null;
-                }
-              })
-              .withoutNulls
-              .toList() ??
-          _cart;
-    });
     _safeInit(() {
       _branchID = prefs.getInt('ff_branchID') ?? _branchID;
     });
@@ -51,6 +34,9 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _mpesa = prefs.getDouble('ff_mpesa') ?? _mpesa;
     });
+    _safeInit(() {
+      _CartCount = prefs.getInt('ff_CartCount') ?? _CartCount;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -59,41 +45,6 @@ class FFAppState extends ChangeNotifier {
   }
 
   late SharedPreferences prefs;
-
-  List<CartStruct> _cart = [];
-  List<CartStruct> get cart => _cart;
-  set cart(List<CartStruct> value) {
-    _cart = value;
-    prefs.setStringList('ff_cart', value.map((x) => x.serialize()).toList());
-  }
-
-  void addToCart(CartStruct value) {
-    _cart.add(value);
-    prefs.setStringList('ff_cart', _cart.map((x) => x.serialize()).toList());
-  }
-
-  void removeFromCart(CartStruct value) {
-    _cart.remove(value);
-    prefs.setStringList('ff_cart', _cart.map((x) => x.serialize()).toList());
-  }
-
-  void removeAtIndexFromCart(int index) {
-    _cart.removeAt(index);
-    prefs.setStringList('ff_cart', _cart.map((x) => x.serialize()).toList());
-  }
-
-  void updateCartAtIndex(
-    int index,
-    CartStruct Function(CartStruct) updateFn,
-  ) {
-    _cart[index] = updateFn(_cart[index]);
-    prefs.setStringList('ff_cart', _cart.map((x) => x.serialize()).toList());
-  }
-
-  void insertAtIndexInCart(int index, CartStruct value) {
-    _cart.insert(index, value);
-    prefs.setStringList('ff_cart', _cart.map((x) => x.serialize()).toList());
-  }
 
   int _branchID = 0;
   int get branchID => _branchID;
@@ -147,6 +98,48 @@ class FFAppState extends ChangeNotifier {
   set mpesa(double value) {
     _mpesa = value;
     prefs.setDouble('ff_mpesa', value);
+  }
+
+  List<dynamic> _Carts = [];
+  List<dynamic> get Carts => _Carts;
+  set Carts(List<dynamic> value) {
+    _Carts = value;
+  }
+
+  void addToCarts(dynamic value) {
+    _Carts.add(value);
+  }
+
+  void removeFromCarts(dynamic value) {
+    _Carts.remove(value);
+  }
+
+  void removeAtIndexFromCarts(int index) {
+    _Carts.removeAt(index);
+  }
+
+  void updateCartsAtIndex(
+    int index,
+    dynamic Function(dynamic) updateFn,
+  ) {
+    _Carts[index] = updateFn(_Carts[index]);
+  }
+
+  void insertAtIndexInCarts(int index, dynamic value) {
+    _Carts.insert(index, value);
+  }
+
+  String _productID = '';
+  String get productID => _productID;
+  set productID(String value) {
+    _productID = value;
+  }
+
+  int _CartCount = 0;
+  int get CartCount => _CartCount;
+  set CartCount(int value) {
+    _CartCount = value;
+    prefs.setInt('ff_CartCount', value);
   }
 }
 

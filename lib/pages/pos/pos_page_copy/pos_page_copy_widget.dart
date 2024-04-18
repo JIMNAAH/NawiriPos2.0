@@ -1,10 +1,8 @@
 import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/structs/index.dart';
 import '/components/home_nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'pos_page_copy_model.dart';
@@ -81,65 +79,6 @@ class _PosPageCopyWidgetState extends State<PosPageCopyWidget> {
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.bold,
                     ),
-              ),
-              InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () async {
-                  context.pushNamed(
-                    'CartPage',
-                    queryParameters: {
-                      'quantity': serializeParam(
-                        0,
-                        ParamType.int,
-                      ),
-                    }.withoutNulls,
-                  );
-                },
-                child: badges.Badge(
-                  badgeContent: Text(
-                    FFAppState().cart.length.toString(),
-                    style: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Nunito',
-                          color: Colors.white,
-                          fontSize: 14.0,
-                          letterSpacing: 0.0,
-                        ),
-                  ),
-                  showBadge: true,
-                  shape: badges.BadgeShape.circle,
-                  badgeColor: const Color(0xFFF60416),
-                  elevation: 4.0,
-                  padding: const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 8.0),
-                  position: badges.BadgePosition.topEnd(),
-                  animationType: badges.BadgeAnimationType.scale,
-                  toAnimate: true,
-                  child: FlutterFlowIconButton(
-                    borderColor: const Color(0xFF054D3B),
-                    borderRadius: 20.0,
-                    borderWidth: 1.0,
-                    buttonSize: 40.0,
-                    fillColor: const Color(0xFF054D3B),
-                    icon: const Icon(
-                      Icons.shopping_basket,
-                      color: Colors.white,
-                      size: 30.0,
-                    ),
-                    onPressed: () async {
-                      context.pushNamed(
-                        'CartPage',
-                        queryParameters: {
-                          'quantity': serializeParam(
-                            0,
-                            ParamType.int,
-                          ),
-                        }.withoutNulls,
-                      );
-                    },
-                  ),
-                ),
               ),
             ],
           ),
@@ -652,42 +591,9 @@ class _PosPageCopyWidgetState extends State<PosPageCopyWidget> {
                                                                     0xFF054D3B),
                                                                 size: 30.0,
                                                               ),
-                                                              onPressed:
-                                                                  () async {
-                                                                setState(() {
-                                                                  FFAppState()
-                                                                      .addToCart(
-                                                                          CartStruct(
-                                                                    productName:
-                                                                        getJsonField(
-                                                                      allProductsItem,
-                                                                      r'''$.location_product_description''',
-                                                                    ).toString(),
-                                                                    sPrice:
-                                                                        getJsonField(
-                                                                      allProductsItem,
-                                                                      r'''$.location_product_sp''',
-                                                                    ),
-                                                                    quantity: 1,
-                                                                    locationProductId:
-                                                                        getJsonField(
-                                                                      allProductsItem,
-                                                                      r'''$.location_product_id''',
-                                                                    ).toString(),
-                                                                    uomCode:
-                                                                        getJsonField(
-                                                                      allProductsItem,
-                                                                      r'''$.uom_code''',
-                                                                    ).toString(),
-                                                                    receiptDetailsId:
-                                                                        '0',
-                                                                    footnote:
-                                                                        getJsonField(
-                                                                      allProductsItem,
-                                                                      r'''$.location_product_id''',
-                                                                    ).toString(),
-                                                                  ));
-                                                                });
+                                                              onPressed: () {
+                                                                print(
+                                                                    'IconButton pressed ...');
                                                               },
                                                             ),
                                                           ),

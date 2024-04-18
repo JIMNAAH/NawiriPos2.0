@@ -22,59 +22,61 @@ class _RegisterWidgetState extends State<RegisterWidget>
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final animationsMap = {
-    'containerOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 1.ms),
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 300.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 300.ms,
-          begin: const Offset(0.0, 140.0),
-          end: const Offset(0.0, 0.0),
-        ),
-        ScaleEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 300.ms,
-          begin: const Offset(0.9, 0.9),
-          end: const Offset(1.0, 1.0),
-        ),
-        TiltEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 300.ms,
-          begin: const Offset(-0.349, 0),
-          end: const Offset(0, 0),
-        ),
-      ],
-    ),
-  };
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => RegisterModel());
 
-    _model.emailAddressController ??= TextEditingController();
+    _model.emailAddressTextController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
 
-    _model.usernameController ??= TextEditingController();
+    _model.usernameTextController ??= TextEditingController();
     _model.usernameFocusNode ??= FocusNode();
 
-    _model.passwordController1 ??= TextEditingController();
+    _model.passwordTextController1 ??= TextEditingController();
     _model.passwordFocusNode1 ??= FocusNode();
 
-    _model.passwordController2 ??= TextEditingController();
+    _model.passwordTextController2 ??= TextEditingController();
     _model.passwordFocusNode2 ??= FocusNode();
+
+    animationsMap.addAll({
+      'containerOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 300.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 300.0.ms,
+            begin: const Offset(0.0, 140.0),
+            end: const Offset(0.0, 0.0),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 300.0.ms,
+            begin: const Offset(0.9, 0.9),
+            end: const Offset(1.0, 1.0),
+          ),
+          TiltEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 300.0.ms,
+            begin: const Offset(-0.349, 0),
+            end: const Offset(0, 0),
+          ),
+        ],
+      ),
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -211,8 +213,8 @@ class _RegisterWidgetState extends State<RegisterWidget>
                                           child: SizedBox(
                                             width: double.infinity,
                                             child: TextFormField(
-                                              controller:
-                                                  _model.emailAddressController,
+                                              controller: _model
+                                                  .emailAddressTextController,
                                               focusNode:
                                                   _model.emailAddressFocusNode,
                                               autofocus: true,
@@ -291,7 +293,7 @@ class _RegisterWidgetState extends State<RegisterWidget>
                                               keyboardType:
                                                   TextInputType.emailAddress,
                                               validator: _model
-                                                  .emailAddressControllerValidator
+                                                  .emailAddressTextControllerValidator
                                                   .asValidator(context),
                                             ),
                                           ),
@@ -304,7 +306,7 @@ class _RegisterWidgetState extends State<RegisterWidget>
                                             width: double.infinity,
                                             child: TextFormField(
                                               controller:
-                                                  _model.usernameController,
+                                                  _model.usernameTextController,
                                               focusNode:
                                                   _model.usernameFocusNode,
                                               autofocus: true,
@@ -383,7 +385,7 @@ class _RegisterWidgetState extends State<RegisterWidget>
                                               keyboardType:
                                                   TextInputType.emailAddress,
                                               validator: _model
-                                                  .usernameControllerValidator
+                                                  .usernameTextControllerValidator
                                                   .asValidator(context),
                                             ),
                                           ),
@@ -395,8 +397,8 @@ class _RegisterWidgetState extends State<RegisterWidget>
                                           child: SizedBox(
                                             width: double.infinity,
                                             child: TextFormField(
-                                              controller:
-                                                  _model.passwordController1,
+                                              controller: _model
+                                                  .passwordTextController1,
                                               focusNode:
                                                   _model.passwordFocusNode1,
                                               autofocus: true,
@@ -495,7 +497,7 @@ class _RegisterWidgetState extends State<RegisterWidget>
                                                         letterSpacing: 0.0,
                                                       ),
                                               validator: _model
-                                                  .passwordController1Validator
+                                                  .passwordTextController1Validator
                                                   .asValidator(context),
                                             ),
                                           ),
@@ -507,8 +509,8 @@ class _RegisterWidgetState extends State<RegisterWidget>
                                           child: SizedBox(
                                             width: double.infinity,
                                             child: TextFormField(
-                                              controller:
-                                                  _model.passwordController2,
+                                              controller: _model
+                                                  .passwordTextController2,
                                               focusNode:
                                                   _model.passwordFocusNode2,
                                               autofocus: true,
@@ -607,7 +609,7 @@ class _RegisterWidgetState extends State<RegisterWidget>
                                                         letterSpacing: 0.0,
                                                       ),
                                               validator: _model
-                                                  .passwordController2Validator
+                                                  .passwordTextController2Validator
                                                   .asValidator(context),
                                             ),
                                           ),
@@ -630,14 +632,17 @@ class _RegisterWidgetState extends State<RegisterWidget>
                                                       .call(
                                                 userId: '0',
                                                 username: _model
-                                                    .usernameController.text,
+                                                    .usernameTextController
+                                                    .text,
                                                 email: _model
-                                                    .emailAddressController
+                                                    .emailAddressTextController
                                                     .text,
                                                 password: _model
-                                                    .passwordController1.text,
+                                                    .passwordTextController1
+                                                    .text,
                                                 confirmPassword: _model
-                                                    .passwordController2.text,
+                                                    .passwordTextController2
+                                                    .text,
                                               );
                                               if ((_model.apiResults60
                                                       ?.succeeded ??

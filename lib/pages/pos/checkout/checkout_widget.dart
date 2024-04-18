@@ -28,14 +28,17 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
     super.initState();
     _model = createModel(context, () => CheckoutModel());
 
-    _model.userInputController ??= TextEditingController();
+    _model.userInputTextController ??= TextEditingController();
     _model.userInputFocusNode ??= FocusNode();
 
-    _model.mpesaController ??= TextEditingController();
+    _model.mpesaTextController ??= TextEditingController();
     _model.mpesaFocusNode ??= FocusNode();
 
-    _model.bankController ??= TextEditingController();
+    _model.bankTextController ??= TextEditingController();
     _model.bankFocusNode ??= FocusNode();
+
+    _model.onAccountTextController ??= TextEditingController();
+    _model.onAccountFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -144,16 +147,9 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
-                            TextSpan(
-                              text: formatNumber(
-                                functions.cartSumtotal(FFAppState()
-                                    .cart
-                                    .map((e) => e.toMap())
-                                    .toList()),
-                                formatType: FormatType.decimal,
-                                decimalType: DecimalType.periodDecimal,
-                              ),
-                              style: const TextStyle(
+                            const TextSpan(
+                              text: '',
+                              style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18.0,
@@ -274,12 +270,12 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                               child: SizedBox(
                                 width: MediaQuery.sizeOf(context).width * 0.5,
                                 child: TextFormField(
-                                  controller: _model.userInputController,
+                                  controller: _model.userInputTextController,
                                   focusNode: _model.userInputFocusNode,
                                   onFieldSubmitted: (_) async {
                                     setState(() {
                                       FFAppState().cash = double.parse(
-                                          _model.userInputController.text);
+                                          _model.userInputTextController.text);
                                     });
                                   },
                                   autofocus: true,
@@ -344,7 +340,8 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                         fontWeight: FontWeight.w600,
                                       ),
                                   keyboardType: TextInputType.number,
-                                  validator: _model.userInputControllerValidator
+                                  validator: _model
+                                      .userInputTextControllerValidator
                                       .asValidator(context),
                                 ),
                               ),
@@ -389,12 +386,12 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                               child: SizedBox(
                                 width: MediaQuery.sizeOf(context).width * 0.5,
                                 child: TextFormField(
-                                  controller: _model.mpesaController,
+                                  controller: _model.mpesaTextController,
                                   focusNode: _model.mpesaFocusNode,
                                   onFieldSubmitted: (_) async {
                                     setState(() {
                                       FFAppState().mpesa = double.parse(
-                                          _model.mpesaController.text);
+                                          _model.mpesaTextController.text);
                                     });
                                   },
                                   autofocus: true,
@@ -456,7 +453,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
                                       ),
-                                  validator: _model.mpesaControllerValidator
+                                  validator: _model.mpesaTextControllerValidator
                                       .asValidator(context),
                                 ),
                               ),
@@ -501,12 +498,12 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                               child: SizedBox(
                                 width: MediaQuery.sizeOf(context).width * 0.5,
                                 child: TextFormField(
-                                  controller: _model.bankController,
+                                  controller: _model.bankTextController,
                                   focusNode: _model.bankFocusNode,
                                   onFieldSubmitted: (_) async {
                                     setState(() {
                                       FFAppState().bank = double.parse(
-                                          _model.bankController.text);
+                                          _model.bankTextController.text);
                                     });
                                   },
                                   autofocus: true,
@@ -568,7 +565,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
                                       ),
-                                  validator: _model.bankControllerValidator
+                                  validator: _model.bankTextControllerValidator
                                       .asValidator(context),
                                 ),
                               ),
@@ -722,6 +719,123 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                   ),
                 ),
                 Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        8.0, 0.0, 0.0, 0.0),
+                                    child: SizedBox(
+                                      width: MediaQuery.sizeOf(context).width *
+                                          0.5,
+                                      child: TextFormField(
+                                        controller:
+                                            _model.onAccountTextController,
+                                        focusNode: _model.onAccountFocusNode,
+                                        onFieldSubmitted: (_) async {
+                                          setState(() {
+                                            FFAppState().bank = double.parse(
+                                                _model.onAccountTextController
+                                                    .text);
+                                          });
+                                        },
+                                        autofocus: true,
+                                        obscureText: false,
+                                        decoration: InputDecoration(
+                                          labelStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                          hintText: '0.00',
+                                          hintStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    fontSize: 18.0,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              width: 2.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                              color: Color(0xFF054D3B),
+                                              width: 2.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                          errorBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              width: 2.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                          focusedErrorBorder:
+                                              OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              width: 2.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Readex Pro',
+                                              color: Colors.black,
+                                              fontSize: 18.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                        validator: _model
+                                            .onAccountTextControllerValidator
+                                            .asValidator(context),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 10.0),
                   child: Container(
                     width: 340.0,
@@ -760,14 +874,8 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                         children: [
                           Text(
                             formatNumber(
-                              functions.balance(
-                                  functions.cartSumtotal(FFAppState()
-                                      .cart
-                                      .map((e) => e.toMap())
-                                      .toList()),
-                                  FFAppState().cash,
-                                  FFAppState().mpesa,
-                                  FFAppState().bank),
+                              functions.balance(0.0, FFAppState().cash,
+                                  FFAppState().mpesa, FFAppState().bank),
                               formatType: FormatType.decimal,
                               decimalType: DecimalType.periodDecimal,
                             ),
@@ -794,9 +902,10 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                     children: [
                       FFButtonWidget(
                         onPressed: () async {
-                          if ((_model.userInputController.text != '') ||
-                              (_model.mpesaController.text != '') ||
-                              (_model.bankController.text != '')) {
+                          if ((_model.userInputTextController.text != '') ||
+                              (_model.mpesaTextController.text != '') ||
+                              (_model.bankTextController.text != '') ||
+                              (_model.onAccountTextController.text != '')) {
                             _model.apiResultcni =
                                 await NawiriPOSGroup.postReceiptCall.call(
                               receiptId: '0',
@@ -805,28 +914,21 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                   dateTimeFormat('yMd', getCurrentTimestamp),
                               receiptTime:
                                   dateTimeFormat('jm', getCurrentTimestamp),
-                              receiptTotalAmount: functions.cartSumtotal(
-                                  FFAppState()
-                                      .cart
-                                      .map((e) => e.toMap())
-                                      .toList()),
+                              receiptTotalAmount: 0.0,
                               receiptCashAmount: double.tryParse(
-                                  _model.userInputController.text),
-                              receiptChequeAmount:
-                                  double.tryParse(_model.bankController.text),
-                              receiptCardAmount:
-                                  double.tryParse(_model.bankController.text),
-                              receiptVoucherAmount:
-                                  double.tryParse(_model.bankController.text),
-                              receiptMobileMoney:
-                                  double.tryParse(_model.mpesaController.text),
+                                  _model.userInputTextController.text),
+                              receiptChequeAmount: double.tryParse(
+                                  _model.bankTextController.text),
+                              receiptCardAmount: double.tryParse(
+                                  _model.bankTextController.text),
+                              receiptVoucherAmount: double.tryParse(
+                                  _model.bankTextController.text),
+                              receiptMobileMoney: double.tryParse(
+                                  _model.mpesaTextController.text),
                               branchId: FFAppState().branchID,
                               customerId: _model.dropDownValue,
                               uomCode: 'EAC',
-                              receiptDetailsJson: FFAppState()
-                                  .cart
-                                  .map((e) => e.toMap())
-                                  .toList(),
+                              receiptDetailsJson: FFAppState().Carts,
                               locationId:
                                   '506cfe03-9c0e-4bdc-aef2-2a6ff3bd84cb',
                               shiftId: FFAppState().ShiftD,

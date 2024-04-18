@@ -25,17 +25,17 @@ class _OpenShiftWidgetState extends State<OpenShiftWidget> {
     super.initState();
     _model = createModel(context, () => OpenShiftModel());
 
-    _model.userInputController ??= TextEditingController(
+    _model.userInputTextController ??= TextEditingController(
         text: dateTimeFormat('d/M/y H:mm a', getCurrentTimestamp));
     _model.userInputFocusNode ??= FocusNode();
 
-    _model.shiftDescriptionController ??= TextEditingController();
+    _model.shiftDescriptionTextController ??= TextEditingController();
     _model.shiftDescriptionFocusNode ??= FocusNode();
 
-    _model.tillController ??= TextEditingController();
+    _model.tillTextController ??= TextEditingController();
     _model.tillFocusNode ??= FocusNode();
 
-    _model.openingFloatController ??= TextEditingController();
+    _model.openingFloatTextController ??= TextEditingController();
     _model.openingFloatFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -156,8 +156,8 @@ class _OpenShiftWidgetState extends State<OpenShiftWidget> {
                                                     .width *
                                                 0.44,
                                             child: TextFormField(
-                                              controller:
-                                                  _model.userInputController,
+                                              controller: _model
+                                                  .userInputTextController,
                                               focusNode:
                                                   _model.userInputFocusNode,
                                               autofocus: true,
@@ -247,7 +247,7 @@ class _OpenShiftWidgetState extends State<OpenShiftWidget> {
                                               keyboardType:
                                                   TextInputType.number,
                                               validator: _model
-                                                  .userInputControllerValidator
+                                                  .userInputTextControllerValidator
                                                   .asValidator(context),
                                             ),
                                           ),
@@ -265,7 +265,8 @@ class _OpenShiftWidgetState extends State<OpenShiftWidget> {
                             child: SizedBox(
                               width: 370.0,
                               child: TextFormField(
-                                controller: _model.shiftDescriptionController,
+                                controller:
+                                    _model.shiftDescriptionTextController,
                                 focusNode: _model.shiftDescriptionFocusNode,
                                 autofocus: true,
                                 obscureText: false,
@@ -317,7 +318,7 @@ class _OpenShiftWidgetState extends State<OpenShiftWidget> {
                                     ),
                                 maxLines: 3,
                                 validator: _model
-                                    .shiftDescriptionControllerValidator
+                                    .shiftDescriptionTextControllerValidator
                                     .asValidator(context),
                               ),
                             ),
@@ -328,7 +329,7 @@ class _OpenShiftWidgetState extends State<OpenShiftWidget> {
                             child: SizedBox(
                               width: 370.0,
                               child: TextFormField(
-                                controller: _model.tillController,
+                                controller: _model.tillTextController,
                                 focusNode: _model.tillFocusNode,
                                 autofocus: true,
                                 obscureText: false,
@@ -378,7 +379,7 @@ class _OpenShiftWidgetState extends State<OpenShiftWidget> {
                                       fontFamily: 'Readex Pro',
                                       letterSpacing: 0.0,
                                     ),
-                                validator: _model.tillControllerValidator
+                                validator: _model.tillTextControllerValidator
                                     .asValidator(context),
                               ),
                             ),
@@ -389,7 +390,7 @@ class _OpenShiftWidgetState extends State<OpenShiftWidget> {
                             child: SizedBox(
                               width: 370.0,
                               child: TextFormField(
-                                controller: _model.openingFloatController,
+                                controller: _model.openingFloatTextController,
                                 focusNode: _model.openingFloatFocusNode,
                                 autofocus: true,
                                 obscureText: false,
@@ -440,7 +441,7 @@ class _OpenShiftWidgetState extends State<OpenShiftWidget> {
                                       letterSpacing: 0.0,
                                     ),
                                 validator: _model
-                                    .openingFloatControllerValidator
+                                    .openingFloatTextControllerValidator
                                     .asValidator(context),
                               ),
                             ),
@@ -493,8 +494,8 @@ class _OpenShiftWidgetState extends State<OpenShiftWidget> {
                                         await NawiriPOSGroup.saveShiftCall.call(
                                       branchId: FFAppState().branchID,
                                       shiftDescription: _model
-                                          .shiftDescriptionController.text,
-                                      tillId: _model.tillController.text,
+                                          .shiftDescriptionTextController.text,
+                                      tillId: _model.tillTextController.text,
                                       shiftId: '0',
                                       shiftComplete: 'N',
                                       sdate: getCurrentTimestamp.toString(),

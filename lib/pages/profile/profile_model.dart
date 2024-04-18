@@ -8,32 +8,33 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
   final unfocusNode = FocusNode();
   // State field(s) for bussinaessName widget.
   FocusNode? bussinaessNameFocusNode;
-  TextEditingController? bussinaessNameController;
-  String? Function(BuildContext, String?)? bussinaessNameControllerValidator;
+  TextEditingController? bussinaessNameTextController;
+  String? Function(BuildContext, String?)?
+      bussinaessNameTextControllerValidator;
   // State field(s) for email widget.
   FocusNode? emailFocusNode;
-  TextEditingController? emailController;
-  String? Function(BuildContext, String?)? emailControllerValidator;
+  TextEditingController? emailTextController;
+  String? Function(BuildContext, String?)? emailTextControllerValidator;
   // State field(s) for location widget.
   FocusNode? locationFocusNode;
-  TextEditingController? locationController;
-  String? Function(BuildContext, String?)? locationControllerValidator;
+  TextEditingController? locationTextController;
+  String? Function(BuildContext, String?)? locationTextControllerValidator;
   // State field(s) for phone widget.
   FocusNode? phoneFocusNode;
-  TextEditingController? phoneController;
-  String? Function(BuildContext, String?)? phoneControllerValidator;
+  TextEditingController? phoneTextController;
+  String? Function(BuildContext, String?)? phoneTextControllerValidator;
   // State field(s) for till widget.
   FocusNode? tillFocusNode;
-  TextEditingController? tillController;
-  String? Function(BuildContext, String?)? tillControllerValidator;
+  TextEditingController? tillTextController;
+  String? Function(BuildContext, String?)? tillTextControllerValidator;
   // State field(s) for recieptFooter widget.
   FocusNode? recieptFooterFocusNode;
-  TextEditingController? recieptFooterController;
-  String? Function(BuildContext, String?)? recieptFooterControllerValidator;
+  TextEditingController? recieptFooterTextController;
+  String? Function(BuildContext, String?)? recieptFooterTextControllerValidator;
   // State field(s) for username widget.
   FocusNode? usernameFocusNode;
-  TextEditingController? usernameController;
-  String? Function(BuildContext, String?)? usernameControllerValidator;
+  TextEditingController? usernameTextController;
+  String? Function(BuildContext, String?)? usernameTextControllerValidator;
 
   @override
   void initState(BuildContext context) {}
@@ -42,24 +43,24 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
   void dispose() {
     unfocusNode.dispose();
     bussinaessNameFocusNode?.dispose();
-    bussinaessNameController?.dispose();
+    bussinaessNameTextController?.dispose();
 
     emailFocusNode?.dispose();
-    emailController?.dispose();
+    emailTextController?.dispose();
 
     locationFocusNode?.dispose();
-    locationController?.dispose();
+    locationTextController?.dispose();
 
     phoneFocusNode?.dispose();
-    phoneController?.dispose();
+    phoneTextController?.dispose();
 
     tillFocusNode?.dispose();
-    tillController?.dispose();
+    tillTextController?.dispose();
 
     recieptFooterFocusNode?.dispose();
-    recieptFooterController?.dispose();
+    recieptFooterTextController?.dispose();
 
     usernameFocusNode?.dispose();
-    usernameController?.dispose();
+    usernameTextController?.dispose();
   }
 }

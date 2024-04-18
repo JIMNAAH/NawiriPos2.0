@@ -33,19 +33,19 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
     super.initState();
     _model = createModel(context, () => AddTransactionModel());
 
-    _model.refController ??= TextEditingController();
+    _model.refTextController ??= TextEditingController();
     _model.refFocusNode ??= FocusNode();
 
-    _model.amountController ??= TextEditingController();
+    _model.amountTextController ??= TextEditingController();
     _model.amountFocusNode ??= FocusNode();
 
-    _model.chargesController ??= TextEditingController();
+    _model.chargesTextController ??= TextEditingController();
     _model.chargesFocusNode ??= FocusNode();
 
-    _model.dueDateController ??= TextEditingController();
+    _model.dueDateTextController ??= TextEditingController();
     _model.dueDateFocusNode ??= FocusNode();
 
-    _model.commentsController ??= TextEditingController();
+    _model.commentsTextController ??= TextEditingController();
     _model.commentsFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -240,7 +240,7 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                                   child: SizedBox(
                                     width: 370.0,
                                     child: TextFormField(
-                                      controller: _model.refController,
+                                      controller: _model.refTextController,
                                       focusNode: _model.refFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -298,7 +298,8 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                                             letterSpacing: 0.0,
                                           ),
                                       keyboardType: TextInputType.number,
-                                      validator: _model.refControllerValidator
+                                      validator: _model
+                                          .refTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -309,7 +310,7 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                                   child: SizedBox(
                                     width: 370.0,
                                     child: TextFormField(
-                                      controller: _model.amountController,
+                                      controller: _model.amountTextController,
                                       focusNode: _model.amountFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -368,7 +369,7 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                                           ),
                                       keyboardType: TextInputType.number,
                                       validator: _model
-                                          .amountControllerValidator
+                                          .amountTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -379,7 +380,7 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                                   child: SizedBox(
                                     width: 370.0,
                                     child: TextFormField(
-                                      controller: _model.chargesController,
+                                      controller: _model.chargesTextController,
                                       focusNode: _model.chargesFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -437,7 +438,7 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                                             letterSpacing: 0.0,
                                           ),
                                       validator: _model
-                                          .chargesControllerValidator
+                                          .chargesTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -448,7 +449,7 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                                   child: SizedBox(
                                     width: 370.0,
                                     child: TextFormField(
-                                      controller: _model.dueDateController,
+                                      controller: _model.dueDateTextController,
                                       focusNode: _model.dueDateFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -507,7 +508,7 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                                           ),
                                       keyboardType: TextInputType.datetime,
                                       validator: _model
-                                          .dueDateControllerValidator
+                                          .dueDateTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -518,7 +519,7 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                                   child: SizedBox(
                                     width: 370.0,
                                     child: TextFormField(
-                                      controller: _model.commentsController,
+                                      controller: _model.commentsTextController,
                                       focusNode: _model.commentsFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -576,7 +577,7 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                                             letterSpacing: 0.0,
                                           ),
                                       validator: _model
-                                          .commentsControllerValidator
+                                          .commentsTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -598,18 +599,19 @@ class _AddTransactionWidgetState extends State<AddTransactionWidget> {
                                             bankId: widget.bankID,
                                             bankTransTypeId:
                                                 _model.ddBankingtypeValue,
-                                            transRef: _model.refController.text,
+                                            transRef:
+                                                _model.refTextController.text,
                                             transDate:
                                                 getCurrentTimestamp.toString(),
-                                            transAmount: double.tryParse(
-                                                _model.amountController.text),
-                                            transComment:
-                                                _model.commentsController.text,
+                                            transAmount: double.tryParse(_model
+                                                .amountTextController.text),
+                                            transComment: _model
+                                                .commentsTextController.text,
                                             branchId: FFAppState()
                                                 .branchID
                                                 .toString(),
-                                            dueDate:
-                                                _model.dueDateController.text,
+                                            dueDate: _model
+                                                .dueDateTextController.text,
                                           );
                                           if ((_model.apiResult0b1?.succeeded ??
                                               true)) {

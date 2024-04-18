@@ -31,11 +31,11 @@ class _SupplierTransWidgetState extends State<SupplierTransWidget> {
     super.initState();
     _model = createModel(context, () => SupplierTransModel());
 
-    _model.userInputController1 ??= TextEditingController(
+    _model.userInputTextController1 ??= TextEditingController(
         text: dateTimeFormat('d/M/y', getCurrentTimestamp));
     _model.userInputFocusNode1 ??= FocusNode();
 
-    _model.userInputController2 ??= TextEditingController(
+    _model.userInputTextController2 ??= TextEditingController(
         text: dateTimeFormat('d/M/y', getCurrentTimestamp));
     _model.userInputFocusNode2 ??= FocusNode();
 
@@ -175,7 +175,8 @@ class _SupplierTransWidgetState extends State<SupplierTransWidget> {
                                       width: MediaQuery.sizeOf(context).width *
                                           0.4,
                                       child: TextFormField(
-                                        controller: _model.userInputController1,
+                                        controller:
+                                            _model.userInputTextController1,
                                         focusNode: _model.userInputFocusNode1,
                                         onFieldSubmitted: (_) async {
                                           final datePickedDate =
@@ -308,7 +309,7 @@ class _SupplierTransWidgetState extends State<SupplierTransWidget> {
                                             ),
                                         keyboardType: TextInputType.number,
                                         validator: _model
-                                            .userInputController1Validator
+                                            .userInputTextController1Validator
                                             .asValidator(context),
                                       ),
                                     ),
@@ -323,7 +324,8 @@ class _SupplierTransWidgetState extends State<SupplierTransWidget> {
                                     width:
                                         MediaQuery.sizeOf(context).width * 0.4,
                                     child: TextFormField(
-                                      controller: _model.userInputController2,
+                                      controller:
+                                          _model.userInputTextController2,
                                       focusNode: _model.userInputFocusNode2,
                                       autofocus: true,
                                       obscureText: false,
@@ -394,7 +396,7 @@ class _SupplierTransWidgetState extends State<SupplierTransWidget> {
                                           ),
                                       keyboardType: TextInputType.number,
                                       validator: _model
-                                          .userInputController2Validator
+                                          .userInputTextController2Validator
                                           .asValidator(context),
                                     ),
                                   ),

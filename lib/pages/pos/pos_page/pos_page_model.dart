@@ -1,3 +1,4 @@
+import '/backend/sqlite/sqlite_manager.dart';
 import '/components/home_nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'pos_page_widget.dart' show PosPageWidget;
@@ -11,6 +12,8 @@ class PosPageModel extends FlutterFlowModel<PosPageWidget> {
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
+  // Stores action output result for [Backend Call - SQLite (getCartCount)] action in Button widget.
+  List<GetCartCountRow>? cartCount2;
   // Model for HomeNavBar component.
   late HomeNavBarModel homeNavBarModel;
 

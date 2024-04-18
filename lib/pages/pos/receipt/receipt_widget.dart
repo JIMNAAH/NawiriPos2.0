@@ -1,10 +1,9 @@
+import '/backend/sqlite/sqlite_manager.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'receipt_model.dart';
 export 'receipt_model.dart';
@@ -43,8 +42,6 @@ class _ReceiptWidgetState extends State<ReceiptWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -65,9 +62,7 @@ class _ReceiptWidgetState extends State<ReceiptWidget> {
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  setState(() {
-                    FFAppState().cart = [];
-                  });
+                  await SQLiteManager.instance.deleteCart();
                   context.safePop();
                 },
                 child: const Icon(
@@ -325,18 +320,33 @@ class _ReceiptWidgetState extends State<ReceiptWidget> {
                                 ),
                               ],
                             ),
-                            Builder(
-                              builder: (context) {
-                                final receiptDetails =
-                                    FFAppState().cart.map((e) => e).toList();
+                            FutureBuilder<List<GetCartRow>>(
+                              future: SQLiteManager.instance.getCart(),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 50.0,
+                                      height: 50.0,
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                          FlutterFlowTheme.of(context).primary,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }
+                                final listViewGetCartRowList = snapshot.data!;
                                 return ListView.builder(
                                   padding: EdgeInsets.zero,
                                   shrinkWrap: true,
                                   scrollDirection: Axis.vertical,
-                                  itemCount: receiptDetails.length,
-                                  itemBuilder: (context, receiptDetailsIndex) {
-                                    final receiptDetailsItem =
-                                        receiptDetails[receiptDetailsIndex];
+                                  itemCount: listViewGetCartRowList.length,
+                                  itemBuilder: (context, listViewIndex) {
+                                    final listViewGetCartRow =
+                                        listViewGetCartRowList[listViewIndex];
                                     return Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -362,7 +372,7 @@ class _ReceiptWidgetState extends State<ReceiptWidget> {
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Text(
-                                              receiptDetailsItem.productName,
+                                              listViewGetCartRow.productName,
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -380,7 +390,7 @@ class _ReceiptWidgetState extends State<ReceiptWidget> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              receiptDetailsItem.quantity
+                                              listViewGetCartRow.quantity
                                                   .toString(),
                                               style:
                                                   FlutterFlowTheme.of(context)
@@ -399,7 +409,7 @@ class _ReceiptWidgetState extends State<ReceiptWidget> {
                                               CrossAxisAlignment.end,
                                           children: [
                                             Text(
-                                              receiptDetailsItem.sPrice
+                                              listViewGetCartRow.sPrice
                                                   .toString(),
                                               style:
                                                   FlutterFlowTheme.of(context)
@@ -435,15 +445,7 @@ class _ReceiptWidgetState extends State<ReceiptWidget> {
                                           style: TextStyle(),
                                         ),
                                         TextSpan(
-                                          text: formatNumber(
-                                            functions.cartSumtotal(FFAppState()
-                                                .cart
-                                                .map((e) => e.toMap())
-                                                .toList()),
-                                            formatType: FormatType.decimal,
-                                            decimalType:
-                                                DecimalType.periodDecimal,
-                                          ),
+                                          text: '2000',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyLarge
                                               .override(
@@ -589,9 +591,7 @@ class _ReceiptWidgetState extends State<ReceiptWidget> {
                 ),
                 FFButtonWidget(
                   onPressed: () async {
-                    setState(() {
-                      FFAppState().cart = [];
-                    });
+                    await SQLiteManager.instance.deleteCart();
 
                     context.pushNamed('PosPage');
                   },

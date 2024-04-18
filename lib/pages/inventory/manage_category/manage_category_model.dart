@@ -9,20 +9,20 @@ class ManageCategoryModel extends FlutterFlowModel<ManageCategoryWidget> {
   final unfocusNode = FocusNode();
   // State field(s) for Name widget.
   FocusNode? nameFocusNode;
-  TextEditingController? nameController;
-  String? Function(BuildContext, String?)? nameControllerValidator;
+  TextEditingController? nameTextController;
+  String? Function(BuildContext, String?)? nameTextControllerValidator;
   // State field(s) for categoryCount widget.
   FocusNode? categoryCountFocusNode;
-  TextEditingController? categoryCountController;
-  String? Function(BuildContext, String?)? categoryCountControllerValidator;
+  TextEditingController? categoryCountTextController;
+  String? Function(BuildContext, String?)? categoryCountTextControllerValidator;
   // State field(s) for r_margin widget.
   FocusNode? rMarginFocusNode;
-  TextEditingController? rMarginController;
-  String? Function(BuildContext, String?)? rMarginControllerValidator;
+  TextEditingController? rMarginTextController;
+  String? Function(BuildContext, String?)? rMarginTextControllerValidator;
   // State field(s) for w_margin widget.
   FocusNode? wMarginFocusNode;
-  TextEditingController? wMarginController;
-  String? Function(BuildContext, String?)? wMarginControllerValidator;
+  TextEditingController? wMarginTextController;
+  String? Function(BuildContext, String?)? wMarginTextControllerValidator;
   // Stores action output result for [Backend Call - API (Savecategory)] action in Button widget.
   ApiCallResponse? apiResultqhs;
 
@@ -33,15 +33,15 @@ class ManageCategoryModel extends FlutterFlowModel<ManageCategoryWidget> {
   void dispose() {
     unfocusNode.dispose();
     nameFocusNode?.dispose();
-    nameController?.dispose();
+    nameTextController?.dispose();
 
     categoryCountFocusNode?.dispose();
-    categoryCountController?.dispose();
+    categoryCountTextController?.dispose();
 
     rMarginFocusNode?.dispose();
-    rMarginController?.dispose();
+    rMarginTextController?.dispose();
 
     wMarginFocusNode?.dispose();
-    wMarginController?.dispose();
+    wMarginTextController?.dispose();
   }
 }

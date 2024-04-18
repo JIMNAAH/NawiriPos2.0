@@ -10,9 +10,10 @@ class RegisterModel extends FlutterFlowModel<RegisterWidget> {
   final formKey = GlobalKey<FormState>();
   // State field(s) for emailAddress widget.
   FocusNode? emailAddressFocusNode;
-  TextEditingController? emailAddressController;
-  String? Function(BuildContext, String?)? emailAddressControllerValidator;
-  String? _emailAddressControllerValidator(BuildContext context, String? val) {
+  TextEditingController? emailAddressTextController;
+  String? Function(BuildContext, String?)? emailAddressTextControllerValidator;
+  String? _emailAddressTextControllerValidator(
+      BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -31,9 +32,9 @@ class RegisterModel extends FlutterFlowModel<RegisterWidget> {
 
   // State field(s) for username widget.
   FocusNode? usernameFocusNode;
-  TextEditingController? usernameController;
-  String? Function(BuildContext, String?)? usernameControllerValidator;
-  String? _usernameControllerValidator(BuildContext context, String? val) {
+  TextEditingController? usernameTextController;
+  String? Function(BuildContext, String?)? usernameTextControllerValidator;
+  String? _usernameTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -52,10 +53,10 @@ class RegisterModel extends FlutterFlowModel<RegisterWidget> {
 
   // State field(s) for password widget.
   FocusNode? passwordFocusNode1;
-  TextEditingController? passwordController1;
+  TextEditingController? passwordTextController1;
   late bool passwordVisibility1;
-  String? Function(BuildContext, String?)? passwordController1Validator;
-  String? _passwordController1Validator(BuildContext context, String? val) {
+  String? Function(BuildContext, String?)? passwordTextController1Validator;
+  String? _passwordTextController1Validator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -72,10 +73,10 @@ class RegisterModel extends FlutterFlowModel<RegisterWidget> {
 
   // State field(s) for password widget.
   FocusNode? passwordFocusNode2;
-  TextEditingController? passwordController2;
+  TextEditingController? passwordTextController2;
   late bool passwordVisibility2;
-  String? Function(BuildContext, String?)? passwordController2Validator;
-  String? _passwordController2Validator(BuildContext context, String? val) {
+  String? Function(BuildContext, String?)? passwordTextController2Validator;
+  String? _passwordTextController2Validator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -95,27 +96,27 @@ class RegisterModel extends FlutterFlowModel<RegisterWidget> {
 
   @override
   void initState(BuildContext context) {
-    emailAddressControllerValidator = _emailAddressControllerValidator;
-    usernameControllerValidator = _usernameControllerValidator;
+    emailAddressTextControllerValidator = _emailAddressTextControllerValidator;
+    usernameTextControllerValidator = _usernameTextControllerValidator;
     passwordVisibility1 = false;
-    passwordController1Validator = _passwordController1Validator;
+    passwordTextController1Validator = _passwordTextController1Validator;
     passwordVisibility2 = false;
-    passwordController2Validator = _passwordController2Validator;
+    passwordTextController2Validator = _passwordTextController2Validator;
   }
 
   @override
   void dispose() {
     unfocusNode.dispose();
     emailAddressFocusNode?.dispose();
-    emailAddressController?.dispose();
+    emailAddressTextController?.dispose();
 
     usernameFocusNode?.dispose();
-    usernameController?.dispose();
+    usernameTextController?.dispose();
 
     passwordFocusNode1?.dispose();
-    passwordController1?.dispose();
+    passwordTextController1?.dispose();
 
     passwordFocusNode2?.dispose();
-    passwordController2?.dispose();
+    passwordTextController2?.dispose();
   }
 }

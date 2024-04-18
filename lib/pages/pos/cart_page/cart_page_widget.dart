@@ -1,8 +1,8 @@
+import '/backend/sqlite/sqlite_manager.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -13,9 +13,13 @@ class CartPageWidget extends StatefulWidget {
   const CartPageWidget({
     super.key,
     required this.quantity,
+    required this.productName,
+    required this.sPrice,
   });
 
   final int? quantity;
+  final String? productName;
+  final double? sPrice;
 
   @override
   State<CartPageWidget> createState() => _CartPageWidgetState();
@@ -105,17 +109,32 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                       ),
                     ],
                   ),
-                  Builder(
-                    builder: (context) {
-                      final cartItems =
-                          FFAppState().cart.map((e) => e).toList();
+                  FutureBuilder<List<GetCartRow>>(
+                    future: SQLiteManager.instance.getCart(),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                FlutterFlowTheme.of(context).primary,
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+                      final listViewGetCartRowList = snapshot.data!;
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
-                        itemCount: cartItems.length,
-                        itemBuilder: (context, cartItemsIndex) {
-                          final cartItemsItem = cartItems[cartItemsIndex];
+                        itemCount: listViewGetCartRowList.length,
+                        itemBuilder: (context, listViewIndex) {
+                          final listViewGetCartRow =
+                              listViewGetCartRowList[listViewIndex];
                           return Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 10.0, 0.0, 0.0),
@@ -174,7 +193,8 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                               Padding(
                                                 padding: const EdgeInsets.all(2.0),
                                                 child: Text(
-                                                  cartItemsItem.productName,
+                                                  listViewGetCartRow
+                                                      .productName,
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -211,7 +231,8 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                           ),
                                                     ),
                                                     TextSpan(
-                                                      text: cartItemsItem.sPrice
+                                                      text: listViewGetCartRow
+                                                          .sPrice
                                                           .toString(),
                                                       style:
                                                           GoogleFonts.getFont(
@@ -263,19 +284,13 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                   size: 28.0,
                                                 ),
                                                 onPressed: () async {
-                                                  setState(() {
-                                                    FFAppState()
-                                                        .updateCartAtIndex(
-                                                      cartItemsIndex,
-                                                      (e) =>
-                                                          e..isTapped = false,
-                                                    );
-                                                  });
-                                                  setState(() {
-                                                    FFAppState()
-                                                        .removeAtIndexFromCart(
-                                                            cartItemsIndex);
-                                                  });
+                                                  await SQLiteManager.instance
+                                                      .deleteCartItem(
+                                                    productid:
+                                                        listViewGetCartRow
+                                                            .productid,
+                                                  );
+                                                  setState(() {});
                                                 },
                                               ),
                                             ),
@@ -298,20 +313,29 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                     size: 20.0,
                                                   ),
                                                   onPressed: () async {
-                                                    if (cartItemsItem.quantity >
+                                                    if (listViewGetCartRow
+                                                            .quantity >
                                                         1) {
-                                                      FFAppState().update(() {
-                                                        FFAppState()
-                                                            .updateCartAtIndex(
-                                                          cartItemsIndex,
-                                                          (e) => e
-                                                            ..incrementQuantity(
-                                                                -1),
-                                                        );
-                                                      });
+                                                      await SQLiteManager
+                                                          .instance
+                                                          .updateCart(
+                                                        productid:
+                                                            listViewGetCartRow
+                                                                .productid,
+                                                        quantity: -1.0,
+                                                        sPrice: widget.sPrice!,
+                                                      );
                                                     } else {
-                                                      return;
+                                                      await SQLiteManager
+                                                          .instance
+                                                          .deleteCartItem(
+                                                        productid:
+                                                            listViewGetCartRow
+                                                                .productid,
+                                                      );
                                                     }
+
+                                                    setState(() {});
                                                   },
                                                 ),
                                                 InkWell(
@@ -325,7 +349,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                       Colors.transparent,
                                                   onTap: () async {},
                                                   child: Text(
-                                                    cartItemsItem.quantity
+                                                    listViewGetCartRow.quantity
                                                         .toString(),
                                                     style: FlutterFlowTheme.of(
                                                             context)
@@ -357,15 +381,15 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                     size: 20.0,
                                                   ),
                                                   onPressed: () async {
-                                                    FFAppState().update(() {
-                                                      FFAppState()
-                                                          .updateCartAtIndex(
-                                                        cartItemsIndex,
-                                                        (e) => e
-                                                          ..incrementQuantity(
-                                                              1),
-                                                      );
-                                                    });
+                                                    await SQLiteManager.instance
+                                                        .updateCart(
+                                                      productid:
+                                                          listViewGetCartRow
+                                                              .productid,
+                                                      quantity: 1.0,
+                                                      sPrice: widget.sPrice!,
+                                                    );
+                                                    setState(() {});
                                                   },
                                                 ),
                                               ],
@@ -429,19 +453,9 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                       fontWeight: FontWeight.bold,
                                     ),
                               ),
-                              TextSpan(
-                                text: valueOrDefault<String>(
-                                  formatNumber(
-                                    functions.cartSumtotal(FFAppState()
-                                        .cart
-                                        .map((e) => e.toMap())
-                                        .toList()),
-                                    formatType: FormatType.decimal,
-                                    decimalType: DecimalType.periodDecimal,
-                                  ),
-                                  '0',
-                                ),
-                                style: const TextStyle(
+                              const TextSpan(
+                                text: ' 190',
+                                style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18.0,
@@ -632,9 +646,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                       children: [
                         FFButtonWidget(
                           onPressed: () async {
-                            FFAppState().update(() {
-                              FFAppState().cart = [];
-                            });
+                            FFAppState().update(() {});
                           },
                           text: 'Clear',
                           icon: const Icon(

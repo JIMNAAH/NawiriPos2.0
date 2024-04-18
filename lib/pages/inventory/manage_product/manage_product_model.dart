@@ -10,16 +10,17 @@ class ManageProductModel extends FlutterFlowModel<ManageProductWidget> {
   final unfocusNode = FocusNode();
   // State field(s) for Name widget.
   FocusNode? nameFocusNode;
-  TextEditingController? nameController;
-  String? Function(BuildContext, String?)? nameControllerValidator;
+  TextEditingController? nameTextController;
+  String? Function(BuildContext, String?)? nameTextControllerValidator;
   // State field(s) for retailPrice widget.
   FocusNode? retailPriceFocusNode;
-  TextEditingController? retailPriceController;
-  String? Function(BuildContext, String?)? retailPriceControllerValidator;
+  TextEditingController? retailPriceTextController;
+  String? Function(BuildContext, String?)? retailPriceTextControllerValidator;
   // State field(s) for wholesaleMargin widget.
   FocusNode? wholesaleMarginFocusNode;
-  TextEditingController? wholesaleMarginController;
-  String? Function(BuildContext, String?)? wholesaleMarginControllerValidator;
+  TextEditingController? wholesaleMarginTextController;
+  String? Function(BuildContext, String?)?
+      wholesaleMarginTextControllerValidator;
   // State field(s) for DropDown widget.
   String? dropDownValue1;
   FormFieldController<String>? dropDownValueController1;
@@ -36,12 +37,12 @@ class ManageProductModel extends FlutterFlowModel<ManageProductWidget> {
   void dispose() {
     unfocusNode.dispose();
     nameFocusNode?.dispose();
-    nameController?.dispose();
+    nameTextController?.dispose();
 
     retailPriceFocusNode?.dispose();
-    retailPriceController?.dispose();
+    retailPriceTextController?.dispose();
 
     wholesaleMarginFocusNode?.dispose();
-    wholesaleMarginController?.dispose();
+    wholesaleMarginTextController?.dispose();
   }
 }

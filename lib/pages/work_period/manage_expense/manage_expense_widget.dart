@@ -32,17 +32,17 @@ class _ManageExpenseWidgetState extends State<ManageExpenseWidget> {
     super.initState();
     _model = createModel(context, () => ManageExpenseModel());
 
-    _model.userInputController ??=
+    _model.userInputTextController ??=
         TextEditingController(text: getCurrentTimestamp.toString());
     _model.userInputFocusNode ??= FocusNode();
 
-    _model.payToController ??= TextEditingController();
+    _model.payToTextController ??= TextEditingController();
     _model.payToFocusNode ??= FocusNode();
 
-    _model.descriptionController ??= TextEditingController();
+    _model.descriptionTextController ??= TextEditingController();
     _model.descriptionFocusNode ??= FocusNode();
 
-    _model.amountController ??= TextEditingController();
+    _model.amountTextController ??= TextEditingController();
     _model.amountFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -154,7 +154,7 @@ class _ManageExpenseWidgetState extends State<ManageExpenseWidget> {
                                   width:
                                       MediaQuery.sizeOf(context).width * 0.44,
                                   child: TextFormField(
-                                    controller: _model.userInputController,
+                                    controller: _model.userInputTextController,
                                     focusNode: _model.userInputFocusNode,
                                     autofocus: true,
                                     obscureText: false,
@@ -226,7 +226,7 @@ class _ManageExpenseWidgetState extends State<ManageExpenseWidget> {
                                         ),
                                     keyboardType: TextInputType.number,
                                     validator: _model
-                                        .userInputControllerValidator
+                                        .userInputTextControllerValidator
                                         .asValidator(context),
                                   ),
                                 ),
@@ -397,7 +397,7 @@ class _ManageExpenseWidgetState extends State<ManageExpenseWidget> {
                             child: SizedBox(
                               width: 370.0,
                               child: TextFormField(
-                                controller: _model.payToController,
+                                controller: _model.payToTextController,
                                 focusNode: _model.payToFocusNode,
                                 autofocus: true,
                                 obscureText: false,
@@ -448,7 +448,7 @@ class _ManageExpenseWidgetState extends State<ManageExpenseWidget> {
                                       color: Colors.black,
                                       letterSpacing: 0.0,
                                     ),
-                                validator: _model.payToControllerValidator
+                                validator: _model.payToTextControllerValidator
                                     .asValidator(context),
                               ),
                             ),
@@ -466,7 +466,7 @@ class _ManageExpenseWidgetState extends State<ManageExpenseWidget> {
                             child: SizedBox(
                               width: 370.0,
                               child: TextFormField(
-                                controller: _model.descriptionController,
+                                controller: _model.descriptionTextController,
                                 focusNode: _model.descriptionFocusNode,
                                 autofocus: true,
                                 obscureText: false,
@@ -518,7 +518,8 @@ class _ManageExpenseWidgetState extends State<ManageExpenseWidget> {
                                       letterSpacing: 0.0,
                                     ),
                                 maxLines: 3,
-                                validator: _model.descriptionControllerValidator
+                                validator: _model
+                                    .descriptionTextControllerValidator
                                     .asValidator(context),
                               ),
                             ),
@@ -536,7 +537,7 @@ class _ManageExpenseWidgetState extends State<ManageExpenseWidget> {
                             child: SizedBox(
                               width: 370.0,
                               child: TextFormField(
-                                controller: _model.amountController,
+                                controller: _model.amountTextController,
                                 focusNode: _model.amountFocusNode,
                                 autofocus: true,
                                 obscureText: false,
@@ -587,7 +588,7 @@ class _ManageExpenseWidgetState extends State<ManageExpenseWidget> {
                                       color: Colors.black,
                                       letterSpacing: 0.0,
                                     ),
-                                validator: _model.amountControllerValidator
+                                validator: _model.amountTextControllerValidator
                                     .asValidator(context),
                               ),
                             ),
@@ -608,17 +609,17 @@ class _ManageExpenseWidgetState extends State<ManageExpenseWidget> {
                                   await NawiriPOSGroup.saveExpensesCall.call(
                                 branchId: FFAppState().branchID,
                                 cashAmount: double.tryParse(
-                                    _model.amountController.text),
+                                    _model.amountTextController.text),
                                 ccAmount: 0.0,
                                 payId: '0',
                                 payDescription:
-                                    _model.descriptionController.text,
-                                payTo: _model.payToController.text,
+                                    _model.descriptionTextController.text,
+                                payTo: _model.payToTextController.text,
                                 payTypeId: _model.transactiontypeValue,
                                 shiftId: FFAppState().ShiftD,
                                 payDate: getCurrentTimestamp.toString(),
                                 payAmount: double.tryParse(
-                                    _model.amountController.text),
+                                    _model.amountTextController.text),
                                 staffId: FFAppState().StaffD,
                                 chequeAmount: 0.00,
                                 mobileAmount: 0.00,

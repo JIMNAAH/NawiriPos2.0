@@ -1,11 +1,8 @@
-import '/backend/schema/structs/index.dart';
-import '/flutter_flow/flutter_flow_data_table.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'supplier_report_model.dart';
 export 'supplier_report_model.dart';
 
@@ -38,8 +35,6 @@ class _SupplierReportWidgetState extends State<SupplierReportWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -169,160 +164,6 @@ class _SupplierReportWidgetState extends State<SupplierReportWidget> {
                       ),
                     ),
                   ],
-                ),
-                Expanded(
-                  child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                    child: Builder(
-                      builder: (context) {
-                        final asd = FFAppState().cart.toList();
-                        return FlutterFlowDataTable<CartStruct>(
-                          controller: _model.paginatedDataTableController,
-                          data: asd,
-                          columnsBuilder: (onSortChanged) => [
-                            DataColumn2(
-                              label: DefaultTextStyle.merge(
-                                softWrap: true,
-                                child: Text(
-                                  'ID',
-                                  style: FlutterFlowTheme.of(context)
-                                      .labelLarge
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        fontSize: 14.0,
-                                        letterSpacing: 0.0,
-                                      ),
-                                ),
-                              ),
-                            ),
-                            DataColumn2(
-                              label: DefaultTextStyle.merge(
-                                softWrap: true,
-                                child: Text(
-                                  'Name',
-                                  style: FlutterFlowTheme.of(context)
-                                      .labelLarge
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        fontSize: 14.0,
-                                        letterSpacing: 0.0,
-                                      ),
-                                ),
-                              ),
-                            ),
-                            DataColumn2(
-                              label: DefaultTextStyle.merge(
-                                softWrap: true,
-                                child: Text(
-                                  'Phone',
-                                  style: FlutterFlowTheme.of(context)
-                                      .labelLarge
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        fontSize: 14.0,
-                                        letterSpacing: 0.0,
-                                      ),
-                                ),
-                              ),
-                            ),
-                            DataColumn2(
-                              label: DefaultTextStyle.merge(
-                                softWrap: true,
-                                child: Text(
-                                  'Balance',
-                                  style: FlutterFlowTheme.of(context)
-                                      .labelLarge
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        fontSize: 14.0,
-                                        letterSpacing: 0.0,
-                                      ),
-                                ),
-                              ),
-                            ),
-                          ],
-                          dataRowBuilder:
-                              (asdItem, asdIndex, selected, onSelectChanged) =>
-                                  DataRow(
-                            color: MaterialStateProperty.all(
-                              asdIndex % 2 == 0
-                                  ? FlutterFlowTheme.of(context)
-                                      .secondaryBackground
-                                  : FlutterFlowTheme.of(context)
-                                      .primaryBackground,
-                            ),
-                            cells: [
-                              Text(
-                                '1',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      fontSize: 12.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                              ),
-                              Text(
-                                'Name',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      fontSize: 12.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                              ),
-                              Text(
-                                'Phone',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      fontSize: 12.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                              ),
-                              Text(
-                                'Balance',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      fontSize: 12.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                              ),
-                            ].map((c) => DataCell(c)).toList(),
-                          ),
-                          paginated: true,
-                          selectable: false,
-                          hidePaginator: true,
-                          showFirstLastButtons: false,
-                          headingRowHeight: 50.0,
-                          dataRowHeight: 45.0,
-                          columnSpacing: 10.0,
-                          headingRowColor:
-                              FlutterFlowTheme.of(context).secondary,
-                          borderRadius: BorderRadius.circular(8.0),
-                          addHorizontalDivider: true,
-                          addTopAndBottomDivider: true,
-                          hideDefaultHorizontalDivider: false,
-                          horizontalDividerColor:
-                              FlutterFlowTheme.of(context).primaryBackground,
-                          horizontalDividerThickness: 1.0,
-                          addVerticalDivider: true,
-                          verticalDividerColor:
-                              FlutterFlowTheme.of(context).primaryBackground,
-                          verticalDividerThickness: 1.0,
-                        );
-                      },
-                    ),
-                  ),
                 ),
               ],
             ),

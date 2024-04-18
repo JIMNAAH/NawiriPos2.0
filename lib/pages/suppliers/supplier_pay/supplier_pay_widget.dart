@@ -33,13 +33,13 @@ class _SupplierPayWidgetState extends State<SupplierPayWidget> {
     super.initState();
     _model = createModel(context, () => SupplierPayModel());
 
-    _model.transRefController ??= TextEditingController();
+    _model.transRefTextController ??= TextEditingController();
     _model.transRefFocusNode ??= FocusNode();
 
-    _model.commentsController ??= TextEditingController();
+    _model.commentsTextController ??= TextEditingController();
     _model.commentsFocusNode ??= FocusNode();
 
-    _model.amountController ??= TextEditingController();
+    _model.amountTextController ??= TextEditingController();
     _model.amountFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -314,7 +314,7 @@ class _SupplierPayWidgetState extends State<SupplierPayWidget> {
                                   child: SizedBox(
                                     width: 370.0,
                                     child: TextFormField(
-                                      controller: _model.transRefController,
+                                      controller: _model.transRefTextController,
                                       focusNode: _model.transRefFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -373,7 +373,7 @@ class _SupplierPayWidgetState extends State<SupplierPayWidget> {
                                           ),
                                       keyboardType: TextInputType.number,
                                       validator: _model
-                                          .transRefControllerValidator
+                                          .transRefTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -384,7 +384,7 @@ class _SupplierPayWidgetState extends State<SupplierPayWidget> {
                                   child: SizedBox(
                                     width: 370.0,
                                     child: TextFormField(
-                                      controller: _model.commentsController,
+                                      controller: _model.commentsTextController,
                                       focusNode: _model.commentsFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -443,7 +443,7 @@ class _SupplierPayWidgetState extends State<SupplierPayWidget> {
                                           ),
                                       maxLines: 2,
                                       validator: _model
-                                          .commentsControllerValidator
+                                          .commentsTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -454,7 +454,7 @@ class _SupplierPayWidgetState extends State<SupplierPayWidget> {
                                   child: SizedBox(
                                     width: 370.0,
                                     child: TextFormField(
-                                      controller: _model.amountController,
+                                      controller: _model.amountTextController,
                                       focusNode: _model.amountFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -513,7 +513,7 @@ class _SupplierPayWidgetState extends State<SupplierPayWidget> {
                                           ),
                                       keyboardType: TextInputType.number,
                                       validator: _model
-                                          .amountControllerValidator
+                                          .amountTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -538,15 +538,15 @@ class _SupplierPayWidgetState extends State<SupplierPayWidget> {
                                             customerId: widget.supplierID,
                                             fId: ' ',
                                             mobileAmount: 0.0,
-                                            payAmount: double.tryParse(
-                                                _model.amountController.text),
+                                            payAmount: double.tryParse(_model
+                                                .amountTextController.text),
                                             payDate:
                                                 getCurrentTimestamp.toString(),
-                                            payDescription:
-                                                _model.commentsController.text,
+                                            payDescription: _model
+                                                .commentsTextController.text,
                                             payId: '0',
-                                            payRef:
-                                                _model.transRefController.text,
+                                            payRef: _model
+                                                .transRefTextController.text,
                                             payTime:
                                                 getCurrentTimestamp.toString(),
                                             payTo: ' ',

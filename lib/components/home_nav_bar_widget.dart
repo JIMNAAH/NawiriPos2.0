@@ -178,8 +178,8 @@ class _HomeNavBarWidgetState extends State<HomeNavBarWidget> {
                   color: Color(0xFF9299A1),
                   size: 28.0,
                 ),
-                onPressed: () {
-                  print('IconButton pressed ...');
+                onPressed: () async {
+                  context.pushNamed('setting');
                 },
               ),
             ],

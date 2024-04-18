@@ -35,11 +35,11 @@ class _ManageUOMWidgetState extends State<ManageUOMWidget> {
     super.initState();
     _model = createModel(context, () => ManageUOMModel());
 
-    _model.descriptionController ??=
+    _model.descriptionTextController ??=
         TextEditingController(text: widget.uomDescription);
     _model.descriptionFocusNode ??= FocusNode();
 
-    _model.nameController ??= TextEditingController(text: widget.uomName);
+    _model.nameTextController ??= TextEditingController(text: widget.uomName);
     _model.nameFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -141,7 +141,8 @@ class _ManageUOMWidgetState extends State<ManageUOMWidget> {
                                   child: SizedBox(
                                     width: 370.0,
                                     child: TextFormField(
-                                      controller: _model.descriptionController,
+                                      controller:
+                                          _model.descriptionTextController,
                                       focusNode: _model.descriptionFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -199,7 +200,7 @@ class _ManageUOMWidgetState extends State<ManageUOMWidget> {
                                             letterSpacing: 0.0,
                                           ),
                                       validator: _model
-                                          .descriptionControllerValidator
+                                          .descriptionTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -210,7 +211,7 @@ class _ManageUOMWidgetState extends State<ManageUOMWidget> {
                                   child: SizedBox(
                                     width: 370.0,
                                     child: TextFormField(
-                                      controller: _model.nameController,
+                                      controller: _model.nameTextController,
                                       focusNode: _model.nameFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -267,7 +268,8 @@ class _ManageUOMWidgetState extends State<ManageUOMWidget> {
                                             color: Colors.black,
                                             letterSpacing: 0.0,
                                           ),
-                                      validator: _model.nameControllerValidator
+                                      validator: _model
+                                          .nameTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -284,10 +286,11 @@ class _ManageUOMWidgetState extends State<ManageUOMWidget> {
                                           _model.apiResulty7u =
                                               await NawiriPOSGroup.editUomsCall
                                                   .call(
-                                            uomCode: _model.nameController.text,
+                                            uomCode:
+                                                _model.nameTextController.text,
                                             branchId: FFAppState().branchID,
                                             uomDescription: _model
-                                                .descriptionController.text,
+                                                .descriptionTextController.text,
                                             uomId: widget.uomID,
                                             updated: 'Y',
                                           );

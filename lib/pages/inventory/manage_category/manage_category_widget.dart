@@ -39,18 +39,19 @@ class _ManageCategoryWidgetState extends State<ManageCategoryWidget> {
     super.initState();
     _model = createModel(context, () => ManageCategoryModel());
 
-    _model.nameController ??= TextEditingController(text: widget.categoryName);
+    _model.nameTextController ??=
+        TextEditingController(text: widget.categoryName);
     _model.nameFocusNode ??= FocusNode();
 
-    _model.categoryCountController ??=
+    _model.categoryCountTextController ??=
         TextEditingController(text: widget.categoryCount?.toString());
     _model.categoryCountFocusNode ??= FocusNode();
 
-    _model.rMarginController ??=
+    _model.rMarginTextController ??=
         TextEditingController(text: widget.retailMargin?.toString());
     _model.rMarginFocusNode ??= FocusNode();
 
-    _model.wMarginController ??=
+    _model.wMarginTextController ??=
         TextEditingController(text: widget.wholesaleMargin?.toString());
     _model.wMarginFocusNode ??= FocusNode();
 
@@ -153,7 +154,7 @@ class _ManageCategoryWidgetState extends State<ManageCategoryWidget> {
                                   child: SizedBox(
                                     width: 370.0,
                                     child: TextFormField(
-                                      controller: _model.nameController,
+                                      controller: _model.nameTextController,
                                       focusNode: _model.nameFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -209,7 +210,8 @@ class _ManageCategoryWidgetState extends State<ManageCategoryWidget> {
                                             fontFamily: 'Readex Pro',
                                             letterSpacing: 0.0,
                                           ),
-                                      validator: _model.nameControllerValidator
+                                      validator: _model
+                                          .nameTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -221,7 +223,7 @@ class _ManageCategoryWidgetState extends State<ManageCategoryWidget> {
                                     width: 370.0,
                                     child: TextFormField(
                                       controller:
-                                          _model.categoryCountController,
+                                          _model.categoryCountTextController,
                                       focusNode: _model.categoryCountFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -279,7 +281,7 @@ class _ManageCategoryWidgetState extends State<ManageCategoryWidget> {
                                             letterSpacing: 0.0,
                                           ),
                                       validator: _model
-                                          .categoryCountControllerValidator
+                                          .categoryCountTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -290,7 +292,7 @@ class _ManageCategoryWidgetState extends State<ManageCategoryWidget> {
                                   child: SizedBox(
                                     width: 370.0,
                                     child: TextFormField(
-                                      controller: _model.rMarginController,
+                                      controller: _model.rMarginTextController,
                                       focusNode: _model.rMarginFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -348,7 +350,7 @@ class _ManageCategoryWidgetState extends State<ManageCategoryWidget> {
                                             letterSpacing: 0.0,
                                           ),
                                       validator: _model
-                                          .rMarginControllerValidator
+                                          .rMarginTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -359,7 +361,7 @@ class _ManageCategoryWidgetState extends State<ManageCategoryWidget> {
                                   child: SizedBox(
                                     width: 370.0,
                                     child: TextFormField(
-                                      controller: _model.wMarginController,
+                                      controller: _model.wMarginTextController,
                                       focusNode: _model.wMarginFocusNode,
                                       autofocus: true,
                                       obscureText: false,
@@ -417,7 +419,7 @@ class _ManageCategoryWidgetState extends State<ManageCategoryWidget> {
                                             letterSpacing: 0.0,
                                           ),
                                       validator: _model
-                                          .wMarginControllerValidator
+                                          .wMarginTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -437,14 +439,15 @@ class _ManageCategoryWidgetState extends State<ManageCategoryWidget> {
                                                   .call(
                                             branchId: FFAppState().branchID,
                                             categoryCount: int.tryParse(_model
-                                                .categoryCountController.text),
+                                                .categoryCountTextController
+                                                .text),
                                             categoryDesc:
-                                                _model.nameController.text,
+                                                _model.nameTextController.text,
                                             categoryId: widget.categoryID,
-                                            rmargin: double.tryParse(
-                                                _model.rMarginController.text),
-                                            wmargin: double.tryParse(
-                                                _model.wMarginController.text),
+                                            rmargin: double.tryParse(_model
+                                                .rMarginTextController.text),
+                                            wmargin: double.tryParse(_model
+                                                .wMarginTextController.text),
                                           );
                                           if ((_model.apiResultqhs?.succeeded ??
                                               true)) {

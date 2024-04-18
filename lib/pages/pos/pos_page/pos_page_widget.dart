@@ -1,9 +1,10 @@
 import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/structs/index.dart';
+import '/backend/sqlite/sqlite_manager.dart';
 import '/components/home_nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -95,12 +96,20 @@ class _PosPageWidgetState extends State<PosPageWidget> {
                         0,
                         ParamType.int,
                       ),
+                      'productName': serializeParam(
+                        '',
+                        ParamType.String,
+                      ),
+                      'sPrice': serializeParam(
+                        0.0,
+                        ParamType.double,
+                      ),
                     }.withoutNulls,
                   );
                 },
                 child: badges.Badge(
                   badgeContent: Text(
-                    FFAppState().cart.length.toString(),
+                    FFAppState().CartCount.toString(),
                     style: FlutterFlowTheme.of(context).titleSmall.override(
                           fontFamily: 'Nunito',
                           color: Colors.white,
@@ -134,6 +143,14 @@ class _PosPageWidgetState extends State<PosPageWidget> {
                           'quantity': serializeParam(
                             0,
                             ParamType.int,
+                          ),
+                          'productName': serializeParam(
+                            '',
+                            ParamType.String,
+                          ),
+                          'sPrice': serializeParam(
+                            0.0,
+                            ParamType.double,
                           ),
                         }.withoutNulls,
                       );
@@ -305,34 +322,7 @@ class _PosPageWidgetState extends State<PosPageWidget> {
                                             hoverColor: Colors.transparent,
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
-                                              setState(() {
-                                                FFAppState()
-                                                    .addToCart(CartStruct(
-                                                  productName: getJsonField(
-                                                    allProductsItem,
-                                                    r'''$.location_product_description''',
-                                                  ).toString(),
-                                                  sPrice: getJsonField(
-                                                    allProductsItem,
-                                                    r'''$.location_product_sp''',
-                                                  ),
-                                                  quantity: 1,
-                                                  locationProductId:
-                                                      getJsonField(
-                                                    allProductsItem,
-                                                    r'''$.location_product_id''',
-                                                  ).toString(),
-                                                  uomCode: getJsonField(
-                                                    allProductsItem,
-                                                    r'''$.uom_code''',
-                                                  ).toString(),
-                                                  receiptDetailsId: '0',
-                                                  footnote: getJsonField(
-                                                    allProductsItem,
-                                                    r'''$.location_product_id''',
-                                                  ).toString(),
-                                                ));
-                                              });
+                                              setState(() {});
                                             },
                                             child: Card(
                                               clipBehavior:
@@ -499,67 +489,94 @@ class _PosPageWidgetState extends State<PosPageWidget> {
                                                               MainAxisAlignment
                                                                   .center,
                                                           children: [
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
+                                                            FFButtonWidget(
+                                                              onPressed:
+                                                                  () async {
+                                                                await SQLiteManager
+                                                                    .instance
+                                                                    .addCart(
+                                                                  productid:
+                                                                      getJsonField(
+                                                                    allProductsItem,
+                                                                    r'''$.location_product_id''',
+                                                                  ).toString(),
+                                                                  productName:
+                                                                      getJsonField(
+                                                                    allProductsItem,
+                                                                    r'''$.location_product_description''',
+                                                                  ).toString(),
+                                                                  quantity: 1.0,
+                                                                  sPrice: 10.0,
+                                                                  uomcode:
+                                                                      getJsonField(
+                                                                    allProductsItem,
+                                                                    r'''$.uom_code''',
+                                                                  ).toString(),
+                                                                  receiptdetailid:
+                                                                      ' ',
+                                                                  footnote: ' ',
+                                                                );
+                                                                _model.cartCount2 =
+                                                                    await SQLiteManager
+                                                                        .instance
+                                                                        .getCartCount();
+                                                                setState(() {
+                                                                  FFAppState()
+                                                                          .CartCount =
+                                                                      valueOrDefault<
+                                                                          int>(
+                                                                    _model
+                                                                        .cartCount2
+                                                                        ?.first
+                                                                        .cartCount,
+                                                                    0,
+                                                                  );
+                                                                });
+
+                                                                setState(() {});
+                                                              },
+                                                              text: 'Button',
+                                                              options:
+                                                                  FFButtonOptions(
+                                                                height: 40.0,
+                                                                padding: const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        24.0,
+                                                                        0.0,
+                                                                        24.0,
+                                                                        0.0),
+                                                                iconPadding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                                textStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Readex Pro',
+                                                                      color: Colors
+                                                                          .white,
+                                                                      letterSpacing:
                                                                           0.0,
-                                                                          0.0,
-                                                                          5.0,
-                                                                          0.0),
-                                                              child:
-                                                                  FlutterFlowIconButton(
-                                                                borderRadius:
-                                                                    20.0,
-                                                                borderWidth:
-                                                                    1.0,
-                                                                buttonSize:
-                                                                    40.0,
-                                                                icon: const Icon(
-                                                                  Icons
-                                                                      .shopping_cart,
-                                                                  color: Color(
-                                                                      0xFF054D3B),
-                                                                  size: 30.0,
+                                                                    ),
+                                                                elevation: 3.0,
+                                                                borderSide:
+                                                                    const BorderSide(
+                                                                  color: Colors
+                                                                      .transparent,
+                                                                  width: 1.0,
                                                                 ),
-                                                                onPressed:
-                                                                    () async {
-                                                                  setState(() {
-                                                                    FFAppState()
-                                                                        .addToCart(
-                                                                            CartStruct(
-                                                                      productName:
-                                                                          getJsonField(
-                                                                        allProductsItem,
-                                                                        r'''$.location_product_description''',
-                                                                      ).toString(),
-                                                                      sPrice:
-                                                                          getJsonField(
-                                                                        allProductsItem,
-                                                                        r'''$.location_product_sp''',
-                                                                      ),
-                                                                      quantity:
-                                                                          1,
-                                                                      locationProductId:
-                                                                          getJsonField(
-                                                                        allProductsItem,
-                                                                        r'''$.location_product_id''',
-                                                                      ).toString(),
-                                                                      uomCode:
-                                                                          getJsonField(
-                                                                        allProductsItem,
-                                                                        r'''$.uom_code''',
-                                                                      ).toString(),
-                                                                      receiptDetailsId:
-                                                                          '0',
-                                                                      footnote:
-                                                                          getJsonField(
-                                                                        allProductsItem,
-                                                                        r'''$.location_product_id''',
-                                                                      ).toString(),
-                                                                    ));
-                                                                  });
-                                                                },
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            8.0),
                                                               ),
                                                             ),
                                                           ],

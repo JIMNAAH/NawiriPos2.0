@@ -1,2 +1,2 @@
-export 'generate_customer_report.dart' show generateCustomerReport;
+export 'create_simple_p_d_f.dart' show createSimplePDF;
 export 'receipt_generator.dart' show receiptGenerator;

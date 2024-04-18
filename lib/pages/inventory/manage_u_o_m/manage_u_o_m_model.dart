@@ -9,12 +9,12 @@ class ManageUOMModel extends FlutterFlowModel<ManageUOMWidget> {
   final unfocusNode = FocusNode();
   // State field(s) for Description widget.
   FocusNode? descriptionFocusNode;
-  TextEditingController? descriptionController;
-  String? Function(BuildContext, String?)? descriptionControllerValidator;
+  TextEditingController? descriptionTextController;
+  String? Function(BuildContext, String?)? descriptionTextControllerValidator;
   // State field(s) for Name widget.
   FocusNode? nameFocusNode;
-  TextEditingController? nameController;
-  String? Function(BuildContext, String?)? nameControllerValidator;
+  TextEditingController? nameTextController;
+  String? Function(BuildContext, String?)? nameTextControllerValidator;
   // Stores action output result for [Backend Call - API (EditUoms)] action in Button widget.
   ApiCallResponse? apiResulty7u;
 
@@ -25,9 +25,9 @@ class ManageUOMModel extends FlutterFlowModel<ManageUOMWidget> {
   void dispose() {
     unfocusNode.dispose();
     descriptionFocusNode?.dispose();
-    descriptionController?.dispose();
+    descriptionTextController?.dispose();
 
     nameFocusNode?.dispose();
-    nameController?.dispose();
+    nameTextController?.dispose();
   }
 }

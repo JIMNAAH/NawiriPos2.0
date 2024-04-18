@@ -10,13 +10,13 @@ class CustomerTransModel extends FlutterFlowModel<CustomerTransWidget> {
   final unfocusNode = FocusNode();
   // State field(s) for userInput widget.
   FocusNode? userInputFocusNode1;
-  TextEditingController? userInputController1;
-  String? Function(BuildContext, String?)? userInputController1Validator;
+  TextEditingController? userInputTextController1;
+  String? Function(BuildContext, String?)? userInputTextController1Validator;
   DateTime? datePicked;
   // State field(s) for userInput widget.
   FocusNode? userInputFocusNode2;
-  TextEditingController? userInputController2;
-  String? Function(BuildContext, String?)? userInputController2Validator;
+  TextEditingController? userInputTextController2;
+  String? Function(BuildContext, String?)? userInputTextController2Validator;
   Completer<ApiCallResponse>? apiRequestCompleter;
 
   @override
@@ -26,10 +26,10 @@ class CustomerTransModel extends FlutterFlowModel<CustomerTransWidget> {
   void dispose() {
     unfocusNode.dispose();
     userInputFocusNode1?.dispose();
-    userInputController1?.dispose();
+    userInputTextController1?.dispose();
 
     userInputFocusNode2?.dispose();
-    userInputController2?.dispose();
+    userInputTextController2?.dispose();
   }
 
   /// Additional helper methods.
