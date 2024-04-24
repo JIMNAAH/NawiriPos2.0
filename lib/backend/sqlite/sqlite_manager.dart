@@ -56,7 +56,7 @@ class SQLiteManager {
   Future addCart({
     String? productid,
     double? quantity,
-    double? sPrice,
+    String? sPrice,
     String? productName,
     String? uomcode,
     String? receiptdetailid,
@@ -76,13 +76,11 @@ class SQLiteManager {
   Future updateCart({
     String? productid,
     double? quantity,
-    double? sPrice,
   }) =>
       performUpdateCart(
         _database,
         productid: productid,
         quantity: quantity,
-        sPrice: sPrice,
       );
 
   Future deleteCartItem({

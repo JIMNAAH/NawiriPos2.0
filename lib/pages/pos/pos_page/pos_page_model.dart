@@ -12,8 +12,10 @@ class PosPageModel extends FlutterFlowModel<PosPageWidget> {
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
-  // Stores action output result for [Backend Call - SQLite (getCartCount)] action in Button widget.
+  // Stores action output result for [Backend Call - SQLite (getCartCount)] action in IconButton widget.
   List<GetCartCountRow>? cartCount2;
+  // Stores action output result for [Backend Call - SQLite (getCart)] action in IconButton widget.
+  List<GetCartRow>? getAdd;
   // Model for HomeNavBar component.
   late HomeNavBarModel homeNavBarModel;
 

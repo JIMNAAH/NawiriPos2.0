@@ -62,6 +62,8 @@ class NawiriPOSGroup {
   static GetSuppliertransCall getSuppliertransCall = GetSuppliertransCall();
   static CashTotalCall cashTotalCall = CashTotalCall();
   static DeleteAccountCall deleteAccountCall = DeleteAccountCall();
+  static CompanyCall companyCall = CompanyCall();
+  static GetuserCall getuserCall = GetuserCall();
 }
 
 class NwLoginCall {
@@ -2667,6 +2669,82 @@ class DeleteAccountCall {
       alwaysAllowBody: false,
     );
   }
+}
+
+class CompanyCall {
+  Future<ApiCallResponse> call({
+    int? companyId,
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "company_id": $companyId
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'company',
+      apiUrl: '${NawiriPOSGroup.baseUrl}/Getcompany',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? name(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].company_name''',
+      ));
+  String? pin(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].company_pinno''',
+      ));
+  String? addresss(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].company_address''',
+      ));
+  String? town(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].company_town''',
+      ));
+}
+
+class GetuserCall {
+  Future<ApiCallResponse> call({
+    String? userId = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "user_id": "$userId"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Getuser',
+      apiUrl: '${NawiriPOSGroup.baseUrl}/Getuser',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? email(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].email''',
+      ));
+  String? username(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].username''',
+      ));
 }
 
 /// End NawiriPOS Group Code

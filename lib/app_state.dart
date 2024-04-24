@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FFAppState extends ChangeNotifier {
@@ -23,9 +25,6 @@ class FFAppState extends ChangeNotifier {
       _cashTotal = prefs.getDouble('ff_cashTotal') ?? _cashTotal;
     });
     _safeInit(() {
-      _ShiftD = prefs.getString('ff_ShiftD') ?? _ShiftD;
-    });
-    _safeInit(() {
       _cash = prefs.getDouble('ff_cash') ?? _cash;
     });
     _safeInit(() {
@@ -36,6 +35,15 @@ class FFAppState extends ChangeNotifier {
     });
     _safeInit(() {
       _CartCount = prefs.getInt('ff_CartCount') ?? _CartCount;
+    });
+    _safeInit(() {
+      _cartsumtotal = prefs.getDouble('ff_cartsumtotal') ?? _cartsumtotal;
+    });
+    _safeInit(() {
+      _sPrice = prefs.getDouble('ff_sPrice') ?? _sPrice;
+    });
+    _safeInit(() {
+      _companyid = prefs.getInt('ff_companyid') ?? _companyid;
     });
   }
 
@@ -60,11 +68,10 @@ class FFAppState extends ChangeNotifier {
     prefs.setDouble('ff_cashTotal', value);
   }
 
-  String _ShiftD = '';
+  String _ShiftD = '0';
   String get ShiftD => _ShiftD;
   set ShiftD(String value) {
     _ShiftD = value;
-    prefs.setString('ff_ShiftD', value);
   }
 
   String _StaffD = '';
@@ -100,17 +107,31 @@ class FFAppState extends ChangeNotifier {
     prefs.setDouble('ff_mpesa', value);
   }
 
-  List<dynamic> _Carts = [];
-  List<dynamic> get Carts => _Carts;
-  set Carts(List<dynamic> value) {
+  int _CartCount = 0;
+  int get CartCount => _CartCount;
+  set CartCount(int value) {
+    _CartCount = value;
+    prefs.setInt('ff_CartCount', value);
+  }
+
+  double _cartsumtotal = 0.0;
+  double get cartsumtotal => _cartsumtotal;
+  set cartsumtotal(double value) {
+    _cartsumtotal = value;
+    prefs.setDouble('ff_cartsumtotal', value);
+  }
+
+  List<XyzhtrftrStruct> _Carts = [];
+  List<XyzhtrftrStruct> get Carts => _Carts;
+  set Carts(List<XyzhtrftrStruct> value) {
     _Carts = value;
   }
 
-  void addToCarts(dynamic value) {
+  void addToCarts(XyzhtrftrStruct value) {
     _Carts.add(value);
   }
 
-  void removeFromCarts(dynamic value) {
+  void removeFromCarts(XyzhtrftrStruct value) {
     _Carts.remove(value);
   }
 
@@ -120,26 +141,27 @@ class FFAppState extends ChangeNotifier {
 
   void updateCartsAtIndex(
     int index,
-    dynamic Function(dynamic) updateFn,
+    XyzhtrftrStruct Function(XyzhtrftrStruct) updateFn,
   ) {
     _Carts[index] = updateFn(_Carts[index]);
   }
 
-  void insertAtIndexInCarts(int index, dynamic value) {
+  void insertAtIndexInCarts(int index, XyzhtrftrStruct value) {
     _Carts.insert(index, value);
   }
 
-  String _productID = '';
-  String get productID => _productID;
-  set productID(String value) {
-    _productID = value;
+  double _sPrice = 1.0;
+  double get sPrice => _sPrice;
+  set sPrice(double value) {
+    _sPrice = value;
+    prefs.setDouble('ff_sPrice', value);
   }
 
-  int _CartCount = 0;
-  int get CartCount => _CartCount;
-  set CartCount(int value) {
-    _CartCount = value;
-    prefs.setInt('ff_CartCount', value);
+  int _companyid = 0;
+  int get companyid => _companyid;
+  set companyid(int value) {
+    _companyid = value;
+    prefs.setInt('ff_companyid', value);
   }
 }
 

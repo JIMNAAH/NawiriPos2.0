@@ -268,12 +268,12 @@ class _ManageExpenseWidgetState extends State<ManageExpenseWidget> {
                                   _model.transactiontypeValue ??= getJsonField(
                                     transactiontypeGetTransTypesResponse
                                         .jsonBody,
-                                    r'''$.pay_type_id''',
+                                    r'''$[:].pay_type_id''',
                                   ).toString(),
                                 ),
                                 options: (getJsonField(
                                   transactiontypeGetTransTypesResponse.jsonBody,
-                                  r'''$.pay_type_desc''',
+                                  r'''$[:].pay_type_desc''',
                                   true,
                                 ) as List)
                                     .map<String>((s) => s.toString())

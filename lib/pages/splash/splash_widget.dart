@@ -54,33 +54,25 @@ class _SplashWidgetState extends State<SplashWidget> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(140.0, 0.0, 140.0, 0.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image.asset(
-                    'assets/images/nawiri-logo_2.png',
-                    width: 110.0,
-                    height: 126.0,
-                    fit: BoxFit.cover,
-                  ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Image.asset(
+                  'assets/images/nawiri-logo_2.png',
+                  fit: BoxFit.cover,
                 ),
               ),
               Row(
                 mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(146.0, 0.0, 146.0, 0.0),
-                    child: Text(
-                      'nawiri',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Nunito',
-                            fontSize: 34.0,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
+                  Text(
+                    'nawiri 2.0',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Nunito',
+                          fontSize: 30.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
                 ],
               ),

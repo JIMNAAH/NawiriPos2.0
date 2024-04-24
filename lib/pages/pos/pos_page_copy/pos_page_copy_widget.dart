@@ -342,7 +342,7 @@ class _PosPageCopyWidgetState extends State<PosPageCopyWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Text(
-                                  'All Services',
+                                  'Services',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(

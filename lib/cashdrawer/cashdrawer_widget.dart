@@ -103,10 +103,7 @@ class _CashdrawerWidgetState extends State<CashdrawerWidget> {
             body: SafeArea(
               top: true,
               child: FutureBuilder<ApiCallResponse>(
-                future: NawiriPOSGroup.salesTotalCall.call(
-                  branchId: FFAppState().branchID,
-                  shiftId: FFAppState().ShiftD,
-                ),
+                future: NawiriPOSGroup.expenseTransCall.call(),
                 builder: (context, snapshot) {
                   // Customize what your widget looks like when it's loading.
                   if (!snapshot.hasData) {
@@ -122,7 +119,7 @@ class _CashdrawerWidgetState extends State<CashdrawerWidget> {
                       ),
                     );
                   }
-                  final containerSalesTotalResponse = snapshot.data!;
+                  final containerExpenseTransResponse = snapshot.data!;
                   return Container(
                     decoration: const BoxDecoration(),
                     child: Padding(
@@ -169,7 +166,7 @@ class _CashdrawerWidgetState extends State<CashdrawerWidget> {
                               Expanded(
                                 child: Builder(
                                   builder: (context) {
-                                    final sales = containerSalesTotalResponse
+                                    final sales = containerExpenseTransResponse
                                         .jsonBody
                                         .toList();
                                     return FlutterFlowDataTable<dynamic>(
@@ -258,14 +255,7 @@ class _CashdrawerWidgetState extends State<CashdrawerWidget> {
                                         ),
                                         cells: [
                                           Text(
-                                            valueOrDefault<String>(
-                                              NawiriPOSGroup.salesTotalCall
-                                                  .cash(
-                                                containerSalesTotalResponse
-                                                    .jsonBody,
-                                              ),
-                                              '0.00',
-                                            ),
+                                            '0.00',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -283,14 +273,7 @@ class _CashdrawerWidgetState extends State<CashdrawerWidget> {
                                                 ),
                                           ),
                                           Text(
-                                            valueOrDefault<String>(
-                                              NawiriPOSGroup.salesTotalCall
-                                                  .mpesa(
-                                                containerSalesTotalResponse
-                                                    .jsonBody,
-                                              ),
-                                              '0.00',
-                                            ),
+                                            '0.00',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(

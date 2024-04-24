@@ -14,12 +14,16 @@ import 'dart:io';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:path_provider/path_provider.dart';
-import 'package:printing/printing.dart';
 import 'package:permission_handler/permission_handler.dart';
+import '/flutter_flow/custom_functions.dart';
 
-Future<String> receiptGenerator(List<dynamic> receiptDetails) async {
-  // Add your function code here!
+Future<String> receiptGenerator(List<GetCartRow> cartRows) async {
   try {
+    if (cartRows.isEmpty) {
+      print('Error: Cart is empty');
+      return 'Cart is empty';
+    }
+
     final pdf = pw.Document();
 
     // Add a page to the PDF document
@@ -29,7 +33,6 @@ Future<String> receiptGenerator(List<dynamic> receiptDetails) async {
           return pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
-              // Add your receipt header here (similar to the Flutter code)
               pw.Container(
                 margin: pw.EdgeInsets.all(16),
                 padding: pw.EdgeInsets.all(16),
@@ -41,7 +44,7 @@ Future<String> receiptGenerator(List<dynamic> receiptDetails) async {
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
                   children: [
                     pw.Text(
-                      'SOFTBYTE  TECHNOLOGIES',
+                      'SOFTBYTE TECHNOLOGIES',
                       style: pw.TextStyle(
                         fontSize: 18,
                         fontWeight: pw.FontWeight.bold,
@@ -51,29 +54,25 @@ Future<String> receiptGenerator(List<dynamic> receiptDetails) async {
                   ],
                 ),
               ),
-
-              // Add receipt details dynamically
               pw.Table.fromTextArray(
                 context: context,
                 data: <List<String>>[
                   <String>['#', 'Descriptions', 'Qty', 'Amount'],
-                  for (var receiptDetail in receiptDetails)
+                  for (var index = 0; index < cartRows.length; index++)
                     [
-                      '1', // Assuming '1' for simplicity, replace with actual item number
-                      receiptDetail['productName'] ?? 'No Product Name',
-                      receiptDetail['quantity'].toString() ?? 'No Quantity',
-                      receiptDetail['sPrice'].toString() ?? 'No Amount',
+                      (index + 1).toString(),
+                      cartRows[index].productName ?? 'No Product Name',
+                      cartRows[index].quantity?.toString() ?? 'No Quantity',
+                      cartRows[index].sPrice?.toString() ?? 'No Amount',
                     ],
                 ],
               ),
-
-              // Add total amount
               pw.Container(
                 margin: pw.EdgeInsets.only(top: 16),
                 alignment: pw.Alignment.centerRight,
                 child: pw.Text(
                   'Total Amount: ${formatNumber(
-                    cartSumtotal(receiptDetails),
+                    sumTotal(cartRows),
                     formatType: FormatType.decimal,
                     decimalType: DecimalType.periodDecimal,
                   )}',
@@ -83,8 +82,6 @@ Future<String> receiptGenerator(List<dynamic> receiptDetails) async {
                   ),
                 ),
               ),
-
-              // Add more sections as needed
             ],
           );
         },

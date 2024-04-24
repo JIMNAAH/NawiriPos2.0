@@ -102,8 +102,8 @@ class _HomeNavBarWidgetState extends State<HomeNavBarWidget> {
                   color: Color(0xFF9299A1),
                   size: 28.0,
                 ),
-                onPressed: () async {
-                  await launchURL('https://flutter.dev/');
+                onPressed: () {
+                  print('IconButton pressed ...');
                 },
               ),
               FlutterFlowIconButton(
@@ -116,9 +116,7 @@ class _HomeNavBarWidgetState extends State<HomeNavBarWidget> {
                   color: Color(0xFF9299A1),
                   size: 28.0,
                 ),
-                onPressed: () async {
-                  await launchURL('https://flutter.dev/');
-                },
+                onPressed: () async {},
               ),
               InkWell(
                 splashColor: Colors.transparent,

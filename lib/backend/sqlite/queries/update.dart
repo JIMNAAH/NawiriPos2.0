@@ -5,7 +5,7 @@ Future performAddCart(
   Database database, {
   String? productid,
   double? quantity,
-  double? sPrice,
+  String? sPrice,
   String? productName,
   String? uomcode,
   String? receiptdetailid,
@@ -25,10 +25,9 @@ Future performUpdateCart(
   Database database, {
   String? productid,
   double? quantity,
-  double? sPrice,
 }) {
   final query = '''
-UPDATE cart SET quantity=quantity+$quantity ,sPrice = $sPrice WHERE location_product_id='$productid'
+UPDATE cart SET quantity=quantity+$quantity  WHERE location_product_id='$productid'
 ''';
   return database.rawQuery(query);
 }

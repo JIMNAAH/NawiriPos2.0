@@ -524,10 +524,10 @@ class _OpenShiftWidgetState extends State<OpenShiftWidget> {
                                                   .secondary,
                                         ),
                                       );
-                                      setState(() {
+                                      FFAppState().update(() {
                                         FFAppState().ShiftD = getJsonField(
                                           (_model.apiResultick?.jsonBody ?? ''),
-                                          r'''$[:].shift_id''',
+                                          r'''$.shift_id''',
                                         ).toString();
                                       });
 

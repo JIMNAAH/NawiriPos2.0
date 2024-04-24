@@ -331,7 +331,7 @@ class _WorkPeriodWidgetState extends State<WorkPeriodWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      if (FFAppState().ShiftD == '') {
+                                      if (FFAppState().ShiftD == '0') {
                                         context.pushNamed('OpenShift');
                                       } else {
                                         context.pushNamed('closeShift');

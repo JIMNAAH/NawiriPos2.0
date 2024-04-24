@@ -1,7 +1,9 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'inventory_model.dart';
 export 'inventory_model.dart';
 
@@ -34,6 +36,8 @@ class _InventoryWidgetState extends State<InventoryWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -290,93 +294,122 @@ class _InventoryWidgetState extends State<InventoryWidget> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(2.0),
-                        child: InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            context.pushNamed('Products');
-                          },
-                          child: Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            color: const Color(0xFF054D3B),
-                            elevation: 4.0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: FlutterFlowIconButton(
-                                    borderColor: const Color(0xFF054D3B),
-                                    borderRadius: 20.0,
-                                    borderWidth: 1.0,
-                                    buttonSize: 65.0,
-                                    fillColor: const Color(0xFF054D3B),
-                                    icon: const Icon(
-                                      Icons.add_shopping_cart,
-                                      color: Colors.white,
-                                      size: 24.0,
-                                    ),
-                                    onPressed: () {
-                                      print('Icon pressed ...');
-                                    },
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(12.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(2.0),
-                                          child: Text(
-                                            'Products',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Nunito',
-                                                  color: Colors.white,
-                                                  fontSize: 17.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 5.0, 0.0),
-                                  child: FlutterFlowIconButton(
-                                    borderColor: const Color(0xFF054D3B),
-                                    borderRadius: 20.0,
-                                    borderWidth: 1.0,
-                                    buttonSize: 40.0,
-                                    fillColor: const Color(0xFF054D3B),
-                                    icon: const Icon(
-                                      Icons.arrow_forward_ios,
-                                      color: Colors.white,
-                                      size: 24.0,
-                                    ),
-                                    onPressed: () async {
-                                      context.pushNamed('Products');
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
+                        child: FutureBuilder<ApiCallResponse>(
+                          future: NawiriPOSGroup.getcategorysCall.call(
+                            branchId: FFAppState().branchID,
                           ),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      FlutterFlowTheme.of(context).primary,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
+                            final cardGetcategorysResponse = snapshot.data!;
+                            return InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                if (cardGetcategorysResponse.statusCode !=
+                                    200) {
+                                  context.pushNamed('Categories');
+                                } else {
+                                  context.pushNamed('Products');
+                                }
+                              },
+                              child: Card(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                color: const Color(0xFF054D3B),
+                                elevation: 4.0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(2.0),
+                                      child: FlutterFlowIconButton(
+                                        borderColor: const Color(0xFF054D3B),
+                                        borderRadius: 20.0,
+                                        borderWidth: 1.0,
+                                        buttonSize: 65.0,
+                                        fillColor: const Color(0xFF054D3B),
+                                        icon: const Icon(
+                                          Icons.add_shopping_cart,
+                                          color: Colors.white,
+                                          size: 24.0,
+                                        ),
+                                        onPressed: () {
+                                          print('Icon pressed ...');
+                                        },
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.all(2.0),
+                                              child: Text(
+                                                'Products',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Nunito',
+                                                          color: Colors.white,
+                                                          fontSize: 17.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 5.0, 0.0),
+                                      child: FlutterFlowIconButton(
+                                        borderColor: const Color(0xFF054D3B),
+                                        borderRadius: 20.0,
+                                        borderWidth: 1.0,
+                                        buttonSize: 40.0,
+                                        fillColor: const Color(0xFF054D3B),
+                                        icon: const Icon(
+                                          Icons.arrow_forward_ios,
+                                          color: Colors.white,
+                                          size: 24.0,
+                                        ),
+                                        onPressed: () async {
+                                          context.pushNamed('Products');
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ],

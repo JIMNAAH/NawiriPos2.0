@@ -55,7 +55,7 @@ class GetCartRow extends SqliteRow {
 
   String get productid => data['productid'] as String;
   int get quantity => data['quantity'] as int;
-  int get sPrice => data['sPrice'] as int;
+  double get sPrice => data['sPrice'] as double;
   String get productName => data['productName'] as String;
   String get uomcode => data['uomcode'] as String;
   String get receiptdetailid => data['receiptdetailid'] as String;
@@ -69,7 +69,7 @@ Future<List<GetCartTotalRow>> performGetCartTotal(
   Database database,
 ) {
   const query = '''
-select quantity * sPrice as CartTotal  from cart
+SELECT sum(quantity * sPrice) AS Total FROM cart
 ''';
   return _readQuery(database, query, (d) => GetCartTotalRow(d));
 }
@@ -77,7 +77,7 @@ select quantity * sPrice as CartTotal  from cart
 class GetCartTotalRow extends SqliteRow {
   GetCartTotalRow(super.data);
 
-  double get cartTotal => data['CartTotal'] as double;
+  double? get total => data['Total'] as double?;
 }
 
 /// END GETCARTTOTAL

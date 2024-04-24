@@ -138,9 +138,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'productName',
               ParamType.String,
             ),
-            sPrice: params.getParam(
-              'sPrice',
-              ParamType.double,
+            items: params.getParam<dynamic>(
+              'items',
+              ParamType.JSON,
+              true,
             ),
           ),
         ),

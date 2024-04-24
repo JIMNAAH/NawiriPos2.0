@@ -4,7 +4,7 @@ import '/components/home_nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -100,16 +100,15 @@ class _PosPageWidgetState extends State<PosPageWidget> {
                         '',
                         ParamType.String,
                       ),
-                      'sPrice': serializeParam(
-                        0.0,
-                        ParamType.double,
-                      ),
                     }.withoutNulls,
                   );
                 },
                 child: badges.Badge(
                   badgeContent: Text(
-                    FFAppState().CartCount.toString(),
+                    valueOrDefault<String>(
+                      FFAppState().CartCount.toString(),
+                      '0',
+                    ),
                     style: FlutterFlowTheme.of(context).titleSmall.override(
                           fontFamily: 'Nunito',
                           color: Colors.white,
@@ -125,34 +124,50 @@ class _PosPageWidgetState extends State<PosPageWidget> {
                   position: badges.BadgePosition.topEnd(),
                   animationType: badges.BadgeAnimationType.scale,
                   toAnimate: true,
-                  child: FlutterFlowIconButton(
-                    borderColor: const Color(0xFF054D3B),
-                    borderRadius: 20.0,
-                    borderWidth: 1.0,
-                    buttonSize: 40.0,
-                    fillColor: const Color(0xFF054D3B),
-                    icon: const Icon(
-                      Icons.shopping_basket,
-                      color: Colors.white,
-                      size: 30.0,
-                    ),
-                    onPressed: () async {
-                      context.pushNamed(
-                        'CartPage',
-                        queryParameters: {
-                          'quantity': serializeParam(
-                            0,
-                            ParamType.int,
+                  child: FutureBuilder<List<GetCartRow>>(
+                    future: SQLiteManager.instance.getCart(),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                FlutterFlowTheme.of(context).primary,
+                              ),
+                            ),
                           ),
-                          'productName': serializeParam(
-                            '',
-                            ParamType.String,
-                          ),
-                          'sPrice': serializeParam(
-                            0.0,
-                            ParamType.double,
-                          ),
-                        }.withoutNulls,
+                        );
+                      }
+                      final iconButtonGetCartRowList = snapshot.data!;
+                      return FlutterFlowIconButton(
+                        borderColor: const Color(0xFF054D3B),
+                        borderRadius: 20.0,
+                        borderWidth: 1.0,
+                        buttonSize: 40.0,
+                        fillColor: const Color(0xFF054D3B),
+                        icon: const Icon(
+                          Icons.shopping_basket,
+                          color: Colors.white,
+                          size: 30.0,
+                        ),
+                        onPressed: () async {
+                          context.pushNamed(
+                            'CartPage',
+                            queryParameters: {
+                              'quantity': serializeParam(
+                                0,
+                                ParamType.int,
+                              ),
+                              'productName': serializeParam(
+                                '',
+                                ParamType.String,
+                              ),
+                            }.withoutNulls,
+                          );
+                        },
                       );
                     },
                   ),
@@ -489,7 +504,21 @@ class _PosPageWidgetState extends State<PosPageWidget> {
                                                               MainAxisAlignment
                                                                   .center,
                                                           children: [
-                                                            FFButtonWidget(
+                                                            FlutterFlowIconButton(
+                                                              borderRadius:
+                                                                  20.0,
+                                                              borderWidth: 1.0,
+                                                              buttonSize: 40.0,
+                                                              fillColor: const Color(
+                                                                  0xFFF5F5F5),
+                                                              icon: Icon(
+                                                                Icons
+                                                                    .shopping_cart,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .success,
+                                                                size: 30.0,
+                                                              ),
                                                               onPressed:
                                                                   () async {
                                                                 await SQLiteManager
@@ -506,7 +535,11 @@ class _PosPageWidgetState extends State<PosPageWidget> {
                                                                     r'''$.location_product_description''',
                                                                   ).toString(),
                                                                   quantity: 1.0,
-                                                                  sPrice: 10.0,
+                                                                  sPrice:
+                                                                      getJsonField(
+                                                                    allProductsItem,
+                                                                    r'''$.location_product_sp''',
+                                                                  ).toString(),
                                                                   uomcode:
                                                                       getJsonField(
                                                                     allProductsItem,
@@ -520,6 +553,10 @@ class _PosPageWidgetState extends State<PosPageWidget> {
                                                                     await SQLiteManager
                                                                         .instance
                                                                         .getCartCount();
+                                                                _model.getAdd =
+                                                                    await SQLiteManager
+                                                                        .instance
+                                                                        .getCart();
                                                                 setState(() {
                                                                   FFAppState()
                                                                           .CartCount =
@@ -531,53 +568,15 @@ class _PosPageWidgetState extends State<PosPageWidget> {
                                                                         .cartCount,
                                                                     0,
                                                                   );
+                                                                  FFAppState()
+                                                                          .cartsumtotal =
+                                                                      functions.calculateTotal(_model
+                                                                          .getAdd!
+                                                                          .toList())!;
                                                                 });
 
                                                                 setState(() {});
                                                               },
-                                                              text: 'Button',
-                                                              options:
-                                                                  FFButtonOptions(
-                                                                height: 40.0,
-                                                                padding: const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        24.0,
-                                                                        0.0,
-                                                                        24.0,
-                                                                        0.0),
-                                                                iconPadding:
-                                                                    const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                textStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleSmall
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Readex Pro',
-                                                                      color: Colors
-                                                                          .white,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                    ),
-                                                                elevation: 3.0,
-                                                                borderSide:
-                                                                    const BorderSide(
-                                                                  color: Colors
-                                                                      .transparent,
-                                                                  width: 1.0,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            8.0),
-                                                              ),
                                                             ),
                                                           ],
                                                         ),
